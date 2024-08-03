@@ -1,0 +1,17 @@
+/* footer */
+
+
+.footer-logo{
+  filter: invert(99%) sepia(3%) saturate(268%) hue-rotate(58deg) brightness(124%) contrast(100%);
+}
+
+footer .social-links > a:hover{
+transform: scale(0.9);
+transition: all .3 ease-in-out;
+}
+
+footer .footer-navlinks>a:hover{
+  color: var(--secondary-color);
+  transition: all .3 ease-in-out;
+
+}

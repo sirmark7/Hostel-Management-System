@@ -1,0 +1,40 @@
+/* buttons */
+.btn{
+  padding: 4px 8px;
+  background:var(--btn-bg) ;
+  color: var(--background-color);
+  transition: all .3s ease-in-out;
+}
+.btn:hover{
+  background: var(--btn-bg-hover);
+}
+.btn-main{
+  font-size: 16px;
+  font-weight: bold;
+  width: 175px;
+}
+
+.btn-sub{
+  font-size: 14px;
+}
+
+.btn.btn-cart,.btn.btn-cart-alt:hover{
+background: var(--background-color);
+border: 1px solid var(--gray-color);
+color: #202020;
+
+}
+.btn.btn-cart:hover,.btn.btn-cart-alt{
+  background: var(--text-color);
+  color: var(--background-color);
+  border: 1px solid var(--background-color);
+  
+}
+
+.btn.btn-cart{
+  padding: 4px 5px;
+}
+
+.btn.btn-cart-alt{
+  padding: 4px 8px;
+}
