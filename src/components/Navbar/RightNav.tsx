@@ -109,19 +109,9 @@ const path =useLocation()
         </div>
         <NavLink className="" to="/account/wishlist">
           <AiOutlineHeart className="nav-item cursor-pointer  font-normal text-[48px] p-3" />
-          {/* <Image className=' nav-item cursor-pointer ' src='/saved.svg' alt='wishlist' width='48' height='48'/> */}
+          {/* <img className=' nav-item cursor-pointer ' src='/saved.svg' alt='wishlist' width='48' height='48'/> */}
         </NavLink>
-        <span className="relative">
-          <BsBag
-            onClick={() =>{}}
-            className=" cursor-pointer  font-normal text-[45px] p-3"
-          />
-
-          <span className="absolute top-0 right-0 text-white bg-black rounded-full text-[8px] flex justify-center items-center h-4 w-4 p-[2px] ">
-            {/* {cartItems.length} */}
-            0
-          </span>
-        </span>
+       
       </div>
     </>
   );

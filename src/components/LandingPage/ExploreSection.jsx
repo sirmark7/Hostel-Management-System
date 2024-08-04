@@ -12,7 +12,7 @@ const ExploreSection = () => {
       pictureStyles='min-w-[308px] min-h-[200px] bg-contain bg-no-repeat  md:min-h-[484px]  '
       containerStyles='top-0 flex-col md:flex-row'
       textStyles=''
-      image='category-scrubs.png' />
+      image='banner1.png' />
 
     </section>
   )
