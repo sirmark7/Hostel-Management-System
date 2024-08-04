@@ -43,9 +43,19 @@ main section{
 }
 
 .banner-text{
-  background: radial-gradient(53.28% 53.28% at 39.88% 46.72%, #313131 0%, rgba(0, 0, 0, 0) 97.26%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+   background: radial-gradient(93.28% 43.28% at 79.88% 26.72%, #313131 0%, rgba(0, 0, 0, 0) 97.26%) /*warning: gradient uses a rotation that is not supported by CSS and may not behave as expected; */
 
 }
+
+/* .banner::before{
+  content: '';
+  height: 100%;
+  width: 100%;
+ background: linear-gradient(-60deg, #00000000, #313131c1);
+  position: absolute;
+  z-index: -1;
+
+} */
 details > summary::marker {
     content: '';
 }

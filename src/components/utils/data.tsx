@@ -2,6 +2,147 @@ import React from "react";
 import { BsFillGridFill } from "react-icons/bs";
 import { MdInventory, MdOutlineShoppingCartCheckout } from "react-icons/md";
 
+export const rooms = [
+
+{
+    name: "Room A",
+    id: 1,
+    price: 300.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Nice room",
+    facilities: ["WiFi", "Air Conditioning", "Laundry Service"],
+    images: ["room_a_1.jpg", "room_a_2.jpg"]
+},
+{
+    name: "Room B",
+    id: 2,
+    price: 320.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Nice room with a view",
+    facilities: ["WiFi", "Air Conditioning", "Breakfast Included"],
+    images: ["room_b_1.jpg", "room_b_2.jpg"]
+}
+,
+{
+    name: "Room C",
+    id: 3,
+    price: 310.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Comfortable room",
+    facilities: ["WiFi", "Air Conditioning", "Gym Access"],
+    images: ["room_c_1.jpg", "room_c_2.jpg"]
+},
+
+{
+    name: "Room D",
+    id: 4,
+    price: 305.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Spacious room",
+    facilities: ["WiFi", "Air Conditioning", "24/7 Security"],
+    images: ["room_d_1.jpg","room_a_1.jpg", "room_d_2.jpg"]
+},{
+    name: "Room E",
+    id: 5,
+    price: 315.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Well-lit room",
+    facilities: ["WiFi", "Air Conditioning", "Parking"],
+    images: ["room_e_1.jpg","room_b_1.jpg", "room_e_2.jpg"]
+},{
+    name: "Room F",
+    id: 6,
+    price: 325.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Room with balcony",
+    facilities: ["WiFi", "Air Conditioning", "Swimming Pool"],
+    images: ["room_f_1.jpg","room_c_1.jpg", "room_f_2.jpg"]
+},{
+    name: "Room G",
+    id: 7,
+    price: 330.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Room with en-suite bathroom",
+    facilities: ["WiFi", "Air Conditioning", "Restaurant"],
+    images: ["room_g_1.jpg","room_c_1.jpg" ,"room_g_2.jpg"]
+},{
+    name: "Room H",
+    id: 8,
+    price: 340.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Room with kitchenette",
+    facilities: ["WiFi", "Air Conditioning", "Room Service"],
+    images: ["room_a_3.jpg", "room_b_2.jpg","room_h_1.jpg", "room_h_2.jpg"]
+},{
+    name: "Room I",
+    id: 9,
+    price: 335.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Room with study area",
+    facilities: ["WiFi", "Air Conditioning", "Library Access"],
+    images: ["room_a_1.jpg", "room_b_3.jpg","room_i_1.jpg", "room_i_2.jpg"]
+},
+
+{
+    name: "Room J",
+    id: 10,
+    price: 345.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Luxurious room",
+    facilities: ["WiFi", "Air Conditioning", "Spa Access"],
+    images: ["room_d_1.jpg", "room_c_2.jpg","room_j_1.jpg", "room_j_2.jpg"]
+}
+];
 
 export const accountNavItems= [
   {
@@ -71,28 +212,28 @@ export const mainNavItems= [
     mode: "active",
   },
   {
-    name: "Shop",
-    path: "/shop",
+    name: "Hostels",
+    path: "/hostels",
     mode: "",
   },
 ];
 
 export const testimonies = [
-  {
-    testimony:
-      "Absolutely love Sahara Bath & Scrub products! My skin feels so much smoother and healthier.",
-    customer: "Emily S.",
-  },
-  {
-    testimony:
-      "I can't get enough of the natural fragrances. Sahara Bath & Scrub is now my go-to for body wash!",
-    customer: "Brian L.",
-  },
-  {
-    testimony:
-      "Absolutely love Sahara Bath & Scrub products! My skin feels so much smoother and healthier.",
-    customer: "Emily S.",
-  },
+
+{
+    testimony: "Using MJ Hostels made finding and booking a place to stay so easy. The app is user-friendly and has great options.",
+    customer: "John D."
+}
+,
+{
+    testimony: "I had a fantastic experience booking through MJ Hostels. The selection of hostels is impressive, and the booking process is seamless.",
+    customer: "Sarah W."
+}
+,
+{
+    testimony: "MJ Hostels exceeded my expectations. I found the perfect hostel quickly, and the app provided all the information I needed.",
+    customer: "Alex P."
+}
 ];
 
 export const socialLinks = [
@@ -229,6 +370,7 @@ export const profile = {
   ],
 };
 
+
 export const orders = [
   {
     image: "product-1_1.png",
@@ -259,47 +401,78 @@ export const orders = [
   },
 ];
 
-export const cartItems = [
-  {
-    image: "product-5_1.png",
-    name: "THE GIFT OF ALL GIFTS: FENTY EAU DE PARFUM + FREE FENTY ICON LIPSTICK SET",
+export const wishlist = [
+{
+    name: "Room A",
     id: 1,
-    quantity: 2,
     price: 300.0,
     oldPrice: 0,
-  },
-  {
-    image: "product-4_1.png",
-    name: "THE GIFT OF ALL GIFTS: FENTY EAU DE PARFUM + FREE FENTY ICON LIPSTICK SET",
-    id: 2,
-    quantity: 1,
-    price: 1110.0,
-    oldPrice: 0,
-  },
-  {
-    image: "product-7_1.png",
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Nice room",
+    facilities: ["WiFi", "Air Conditioning", "Laundry Service"],
+    images: ["room_a_1.jpg", "room_a_2.jpg"]
+}
+,
+{
+    name: "Room C",
     id: 3,
-    name: "THE GIFT OF ALL GIFTS: FENTY EAU DE PARFUM + FREE FENTY ICON LIPSTICK SET",
-    quantity: 3,
-    price: 300.0,
-    oldPrice: 450.0,
-  },
-  {
-    image: "product-4_1.png",
-    name: "THE GIFT OF ALL GIFTS: FENTY EAU DE PARFUM + FREE FENTY ICON LIPSTICK SET",
-    id: 4,
-    quantity: 1,
-    price: 1110.0,
+    price: 310.0,
     oldPrice: 0,
-  },
-  {
-    image: "product-7_1.png",
-    id: 5,
-    name: "THE GIFT OF ALL GIFTS: FENTY EAU DE PARFUM + FREE FENTY ICON LIPSTICK SET",
-    quantity: 3,
-    price: 300.0,
-    oldPrice: 450.0,
-  },
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Comfortable room",
+    facilities: ["WiFi", "Air Conditioning", "Gym Access"],
+    images: ["room_c_1.jpg", "room_c_2.jpg"]
+},
+
+{
+    name: "Room D",
+    id: 4,
+    price: 305.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Spacious room",
+    facilities: ["WiFi", "Air Conditioning", "24/7 Security"],
+    images: ["room_d_1.jpg", "room_d_2.jpg"]
+},{
+    name: "Room F",
+    id: 6,
+    price: 325.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Room with balcony",
+    facilities: ["WiFi", "Air Conditioning", "Swimming Pool"],
+    images: ["room_f_1.jpg", "room_f_2.jpg"]
+},{
+    name: "Room G",
+    id: 7,
+    price: 330.0,
+    oldPrice: 0,
+    hostel: "Esters Hostel",
+    location: "East Legon, 123 Street",
+    occupancy: 2,
+    stars: [1, 1, 1, 1, 1],
+    category: "standard",
+    description: "Room with en-suite bathroom",
+    facilities: ["WiFi", "Air Conditioning", "Restaurant"],
+    images: ["room_g_1.jpg", "room_g_2.jpg"]
+},
+
 ];
 
 export const faqs = [

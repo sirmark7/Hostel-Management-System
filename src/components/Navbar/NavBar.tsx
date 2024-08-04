@@ -3,10 +3,6 @@ import LeftNav from "./LeftNav";
 import RightNav from "./RightNav";
 import HamburgerNav from "./HamburgerNav";
 import SearchBar from "./SearchBar";
-// import { useAuth } from "@clerk/nextjs";
-// import { usePathname } from "next/navigation";
-// import AdminNavbar from "../(admin_routes)/admin/components/AdminNavbar";
-// import { useFilters } from "@/src/store/useFilters";
 
 const NavBar = () => {
   const [showCart, setShowCart] = useState(false);

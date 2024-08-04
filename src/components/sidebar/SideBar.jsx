@@ -1,7 +1,7 @@
 
 const SideBar = () => {
   return (
-    <div>SideBar</div>
+    <div className=" w-300px  bg-slate-400">SideBar</div>
   )
 }
 
