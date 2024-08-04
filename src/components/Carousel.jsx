@@ -6,7 +6,7 @@ import Dots from './CarouselDots'
 import Autoplay from "embla-carousel-autoplay";
 
 
-const Carousel = ({ children, ...options }) => {
+const Carousel = ({ children}) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({loop:true},[Autoplay()]);
 
   // We need to track the selectedIndex to allow this component to re-render in react.

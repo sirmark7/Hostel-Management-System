@@ -267,6 +267,25 @@ export const filterCard = [
   },
 ];
 
+export const categories=[
+  {
+    id: 1,
+    name: "standard"
+  },
+  {
+    id: 2,
+    name: "Executive"
+  },
+  {
+    id: 3,
+    name: "Luxury"
+  },
+  {
+    id: 4,
+    name: "Regular"
+  },
+]
+
 export const allReviews = [
   {
     rating: 4,

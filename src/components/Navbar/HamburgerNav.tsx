@@ -1,4 +1,3 @@
-"use client";
 
 import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
@@ -85,7 +84,7 @@ const userId=false
           className="uppercase text-2xl text-background-color p-1 hover:text-gray-color"
           to={"#"}
         >
-          Your Bag
+          WISHLIST
         </NavLink>
       </div>
       {/* <span className={`overlay ${isActive?'active':''}` }></span> */}

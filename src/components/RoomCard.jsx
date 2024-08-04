@@ -1,10 +1,12 @@
 
-// import { useWishlist } from "@/src/store/useWishlist";
+
 import { PropTypes } from "prop-types";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { wishlist} from "./utils/data";
+import useWishlist from "./store/useWishlist";
+// import { useEffect } from "react"
+// import { wishlist} from "./utils/data";
 import {
   AiFillStar,
   AiOutlineStar,
@@ -22,14 +24,11 @@ const RoomCard = ({
   rating,
   price,
   product,
-  occupancy
 }) => {
   const [currentImg, setCurrentImg] = useState(0);
 
-  // const { cartItems, addToCart, openCart } = useShoppingCart((state) => state);
-  // const { wishlist, addToWishlist, removeFromWishlist } = useWishlist(
-  //   (state) => state
-  // );
+ 
+  const { wishlistData, addToWishlist, removeFromWishlist } = useWishlist(product);
 
   // Product stars
   const stars = [];
@@ -41,15 +40,15 @@ const RoomCard = ({
     }
   }
 
-  const alreadyInCart = wishlist?.find((item) => item.id === product.id);
+  const alreadyInCart = wishlistData?.find((item) => item.id === product.id);
 
   return (
     <div className={` ${cardStyles} flex flex-col justify-center`}>
       <div className="header-section relative">
-        {wishlist.find((item) => item.id === product.id) ? (
+        {wishlistData?.find((item) => item.id === product.id) ? (
           <AiFillHeart
             onClick={() => {
-              // removeFromWishlist(product.id);
+              removeFromWishlist();
               toast.success("Item removed from wishlist");
             }}
             className=" bg-white rounded-full absolute top-2 right-2 z-5 cursor-pointer text-[28px] p-2"
@@ -57,7 +56,7 @@ const RoomCard = ({
         ) : (
           <AiOutlineHeart
             onClick={() => {
-              // addToWishlist(product);
+              addToWishlist();
               toast.success("Item added to wishlist");
             }}
             className=" bg-white rounded-full absolute top-2 right-2 z-5 cursor-pointer text-[28px] p-2"
@@ -92,7 +91,7 @@ const RoomCard = ({
         </div>
       </div>
 
-      <div className=" w-full footer-section flex justify-between items-center mt-8 ">
+      <div className=" w-full footer-section flex justify-between items-center mt-8  ">
         <button
           disabled={alreadyInCart ? true : false}
           onClick={() => {
@@ -100,7 +99,7 @@ const RoomCard = ({
             // openCart();
             toast.success("Item added to cart");
           }}
-          className="btn btn-cart text-[14px]"
+          className="btn btn-cart text-[14px] cursor-pointer"
         >
           {alreadyInCart ? "IN WISHLIST" : "BOOK NOW"}
         </button>
