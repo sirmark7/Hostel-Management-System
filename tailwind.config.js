@@ -24,7 +24,9 @@ export default {
       },
       animation:{
         'fade-out':' fadeOut 6s ease-in-out forwards infinite ',
-        'fade-in':'fadeIn 6.5s ease-in-out forwards infinite '
+        'fade-out-once':' fadeOut 6s ease-in-out forwards ',
+        'fade-in':'fadeIn 6.5s ease-in-out forwards infinite ',
+        'fade-in-once':'fadeIn 6.5s ease-in-out forwards '
       },
       keyframes:{
         'fadeOut':{

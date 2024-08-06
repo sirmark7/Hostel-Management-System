@@ -4,14 +4,16 @@ import NavBar from './Navbar/NavBar'
 import { useEffect } from 'react'
 function PageLayout({children,title='MJ Hostels || Home'}) {
 
+
     useEffect(()=>{
-        document.title=title
+        document.title=title;
+         window.scrollTo(0, 0)
     },[])
 
 
   return (
 
-      <div className=' w-full h-full flex flex-col items-center justify-start px-[18px]'>
+      <div className=' w-full h-full flex flex-col items-center justify-start px-[18px] ' >
          <header
               className="w-full relative h-[10vh] flex flex-col justify-start"
               style={{ border: "1px soloid red" }}

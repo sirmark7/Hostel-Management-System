@@ -47,15 +47,6 @@ main section{
 
 }
 
-/* .banner::before{
-  content: '';
-  height: 100%;
-  width: 100%;
- background: linear-gradient(-60deg, #00000000, #313131c1);
-  position: absolute;
-  z-index: -1;
-
-} */
 details > summary::marker {
     content: '';
 }

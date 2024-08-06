@@ -69,7 +69,7 @@ const RoomCard = ({
             backgroundImage: `url(./rooms/${
               images && images.length > 0
                 ? images[currentImg]
-                : "/rooms/room_a_1.jpg"
+                : "./rooms/room_a_1.jpg"
             })`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -83,7 +83,7 @@ const RoomCard = ({
         <p className="category py-2 text-text-color-trans text-xs ">
           {category}
         </p>
-        <NavLink href={`/product/${id}`} className="leading-[20px] text-[16px]">
+        <NavLink to={`/hostels/${id}`} className="leading-[20px] text-[16px]">
           {name}
         </NavLink>
         <div className="rating flex py-2 justify-start items-center ">
@@ -95,9 +95,8 @@ const RoomCard = ({
         <button
           disabled={alreadyInCart ? true : false}
           onClick={() => {
-            // addToCart({ item: product, quantity: 1 });
-            // openCart();
-            toast.success("Item added to cart");
+           
+            toast.success("Item added to wishlist");
           }}
           className="btn btn-cart text-[14px] cursor-pointer"
         >

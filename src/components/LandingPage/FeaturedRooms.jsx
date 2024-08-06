@@ -8,7 +8,7 @@ import {rooms} from '../utils/data'
 
 // import axios from "axios";
 
-const Featuredrooms = () => {
+const FeaturedRooms = () => {
   // const [roomList, setRoomList] = useState([]);
 
   // const fetchFeaturedItems = async () => {
@@ -57,7 +57,6 @@ const Featuredrooms = () => {
               cardStyles="min-w-[300px] max-w[302px]"
               imgStyles="h-[300px]"
               occupancy={room.occupancy}
-              room={room}
             />
           </SwiperSlide>
         ))}
@@ -66,4 +65,4 @@ const Featuredrooms = () => {
   );
 };
 
-export default Featuredrooms;
+export default FeaturedRooms;

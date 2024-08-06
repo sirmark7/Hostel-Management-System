@@ -1,12 +1,13 @@
 
 import RoomCard from "../RoomCard";
 import {rooms} from "../utils/data";
-
+import RoomsLayout from "./RoomsLayout";
 const RoomList = () => {
   
 
   return (
-    <div className="products-list mb-5 grid grid-col-1 md:grid-cols-2 lg:grid-cols-4 gap-3 justify-items-center lg:justify-items-end flex-1">
+    <RoomsLayout>
+    <div className="products-list mb-5 grid grid-col-1 md:grid-cols-2 lg:grid-cols-4 gap-3 justify-items-center lg:justify-items-end flex-1 ">
       {/* <InitializeFilters
         search={search}
         featured={featured}
@@ -37,6 +38,7 @@ const RoomList = () => {
         />
       ))}
     </div>
+    </RoomsLayout>
   );
 };
 
