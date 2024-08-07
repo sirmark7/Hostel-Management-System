@@ -1,9 +1,10 @@
 
 import RoomCard from "../RoomCard";
-import {rooms} from "../utils/data";
+import {FilterContext} from "../store/AppContext";
+import { useContext } from "react";
 import RoomsLayout from "./RoomsLayout";
 const RoomList = () => {
-  
+  const {filteredData}=useContext(FilterContext)
 
   return (
     <RoomsLayout>
@@ -15,7 +16,7 @@ const RoomList = () => {
         start={start}
         end={end}
       /> */}
-      {rooms.map((product) => (
+      {filteredData.map((product) => (
         <RoomCard
           key={product.id}
           category={product.category.name}

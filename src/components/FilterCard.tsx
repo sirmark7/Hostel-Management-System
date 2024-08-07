@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const FilterCard = ({ id, title, options }) => {
+const FilterCard = ({ id, title, options,triggerFilter }) => {
 const [activeFilter, setActiveFilter] = useState(false);
  const router = useNavigate();
 
@@ -28,7 +28,7 @@ const [activeFilter, setActiveFilter] = useState(false);
               id={option.name}
               onChange={(e) => {
                 // console.log("Option.value:", option, option.value);
-                // triggerFilter(option.value, e.currentTarget.checked);
+                triggerFilter(option.value, e.currentTarget.checked);
               }}
             />
             <label

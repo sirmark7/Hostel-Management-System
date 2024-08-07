@@ -89,7 +89,7 @@ export const rooms = [
     slot:2,
     occupancy: 2,
     stars: [1, 1, 1, 1, 1],
-    category: "standard",
+    category: "luxury",
     description: "Room with balcony",
     facilities: ["WiFi", "Air Conditioning", "Swimming Pool"],
     images: ["room_f_1.jpg","room_c_1.jpg", "room_f_2.jpg"]
@@ -103,7 +103,7 @@ export const rooms = [
     slot:2,
     occupancy: 2,
     stars: [1, 1, 1, 1, 1],
-    category: "standard",
+    category: "luxury",
     description: "Room with en-suite bathroom",
     facilities: ["WiFi", "Air Conditioning", "Restaurant"],
     images: ["room_g_1.jpg","room_c_1.jpg" ,"room_g_2.jpg"]
@@ -131,7 +131,7 @@ export const rooms = [
     slot:2,
     occupancy: 2,
     stars: [1, 1, 1, 1, 1],
-    category: "standard",
+    category: "executive",
     description: "Room with study area",
     facilities: ["WiFi", "Air Conditioning", "Library Access"],
     images: ["room_a_1.jpg", "room_b_3.jpg","room_i_1.jpg", "room_i_2.jpg"]
@@ -147,7 +147,7 @@ export const rooms = [
     slot:2,
     occupancy: 2,
     stars: [1, 1, 1, 1, 1],
-    category: "standard",
+    category: "executive",
     description: "Luxurious room",
     facilities: ["WiFi", "Air Conditioning", "Spa Access"],
     images: ["room_d_1.jpg", "room_c_2.jpg","room_j_1.jpg", "room_j_2.jpg"]
@@ -440,7 +440,7 @@ export const wishlist = [
     location: "East Legon, 123 Street",
     occupancy: 2,
     stars: [1, 1, 1, 1, 1],
-    category: "standard",
+    category: "executive",
     description: "Nice room",
     facilities: ["WiFi", "Air Conditioning", "Laundry Service"],
     images: ["room_a_1.jpg", "room_a_2.jpg"]
@@ -455,7 +455,7 @@ export const wishlist = [
     location: "East Legon, 123 Street",
     occupancy: 2,
     stars: [1, 1, 1, 1, 1],
-    category: "standard",
+    category: "executive",
     description: "Comfortable room",
     facilities: ["WiFi", "Air Conditioning", "Gym Access"],
     images: ["room_c_1.jpg", "room_c_2.jpg"]

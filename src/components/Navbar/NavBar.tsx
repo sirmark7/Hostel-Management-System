@@ -17,10 +17,10 @@ const NavBar = () => {
   //   <AdminNavbar />
   // ) : 
  return (
-    <nav className="w-full max-w-[1512px] bg-[#F1F1F1] z-50 flex flex-1 items-start py-2 px-[1rem] lg:px-[5rem] fixed top-0 left-1/2 -translate-x-1/2 pt-[20px] justify-between gap-5 md:gap-0">
+    <nav className="w-full max-w-[1512px] bg-[#F1F1F1] z-50 flex flex-1 items-start py-2 px-[1rem] lg:px-[5rem] fixed top-0 left-1/2 -translate-x-1/2 pt-[20px] justify-between gap-5 ">
       <LeftNav />
+      <SearchBar styles=" flex" />
       <RightNav />
-      <SearchBar styles="md:hidden flex" />
       <HamburgerNav setShowCart={setShowCart} />
     </nav>
   );

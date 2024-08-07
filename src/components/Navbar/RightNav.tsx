@@ -52,7 +52,7 @@ const path =useLocation()
         onClick={handleActivenavToggle}
         className="hidden md:flex right-nav nav-items items-center "
       >
-        <SearchBar styles="hidden md:flex" />
+        {/* <SearchBar styles="hidden md:flex" /> */}
 
         <div
           className="relative"

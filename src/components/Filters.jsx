@@ -1,7 +1,9 @@
 import FilterCard from "./FilterCard";
 import { categories } from "./utils/data";
-
+import useFilters from "./store/useFilters"
 const Filters = () => {
+
+  const {addCategoryFilter,addPriceFilter}=useFilters()
 
   return (
     <div>
@@ -10,10 +12,12 @@ const Filters = () => {
         <FilterCard
           id={0}
           title={"Categories"}
+          triggerFilter={addCategoryFilter}
           options={categories.map((category) => ({
             label: category.name.toLowerCase(),
             name: category.name.toLowerCase(),
-            value: `category:${category.id}`,
+            // value: `${category}`,
+            value: category.name.toLocaleLowerCase(),
           }))}
         />
 
@@ -21,15 +25,16 @@ const Filters = () => {
         <FilterCard
           id={1}
           title={"Price"}
+          triggerFilter={addPriceFilter}
           options={[
-            { label: `Under ₵50 `, name: "50", value: "end-50" },
-            { label: "₵50 to ₵100", name: "50-100", value: "start-50:end-100" },
+            { label: `Under ₵50 `, name: "id50", value: "0:50" },
+            { label: "₵50 to ₵100", name: "id50-100", value: "50:100" },
             {
               label: "₵100 to ₵500",
-              name: "100-500",
-              value: "start-100:end-500",
+              name: "id100-500",
+              value: "100:500",
             },
-            { label: "Above ₵500", name: "500", value: "start-500" },
+            { label: "Above ₵500", name:"id500", value: "500:0" },
           ]}
         />
       </div>

@@ -1,16 +1,20 @@
 "use client";
 import React, { useState } from "react";
-import { redirect } from "react-router-dom";
+import { redirect,useLocation } from "react-router-dom";
+import useFilters from "../store/useFilters";
 
 
 const SearchBar = ({ styles }: { styles: string }) => {
   const [search, setSearch] = useState("");
-  // const { setSearchFilter } = useFilters((state) => state);
+  const { addSearchQuery } = useFilters();
+  const path =useLocation().pathname
 
-  const searchShop = async (e) => {
+  const searchShop = (e) => {
     e.preventDefault();
-    // setSearchFilter(search);
-    redirect("/shop");
+    if(path!=="/hostels"){
+      redirect("/hostels");
+    }
+    addSearchQuery(search);
   };
 
   return (
@@ -31,7 +35,7 @@ const SearchBar = ({ styles }: { styles: string }) => {
         placeholder="search"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className=" p-1 border-none outline-none "
+        className=" p-1 border-none outline-none w-full bg-background-color"
       />
     </form>
   );

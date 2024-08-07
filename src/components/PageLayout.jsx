@@ -10,7 +10,6 @@ function PageLayout({children,title='MJ Hostels || Home'}) {
          window.scrollTo(0, 0)
     },[])
 
-
   return (
 
       <div className=' w-full h-full flex flex-col items-center justify-start px-[18px] ' >
