@@ -95,7 +95,7 @@ const Footer = () => {
             © 2024 MJ Hostels. All Rights Reserved.
           </span>
           <span className="flex gap-3 footer-navlinks">
-            <NavLink className="text-[12px] " to={`${linkPreFix}/faqs`}>
+            <NavLink className="text-[12px] " to={`${linkPreFix}:faqs`}>
               FAQs
             </NavLink>
             <NavLink className="text-[12px]" to={`${linkPreFix}/contact_us`}>

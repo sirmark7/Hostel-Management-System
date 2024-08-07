@@ -17,8 +17,8 @@ import Loader from "../Loader";
 // import FeaturedRooms from "../LandingPage/FeaturedRooms";
 import { rooms} from "../utils/data";
 import useWishlist from "../store/useWishlist";
-import { useParams,useNavigate } from "react-router-dom";
 
+import { useParams,useNavigate } from "react-router-dom";
 
 
 const RoomDetail = () => {
