@@ -1,5 +1,5 @@
 import RoomCard  from "./RoomCard";
-import { useWishlist } from "./store/useWishlist";
+import useWishlist from "./store/useWishlist";
 
 
 const WishlistItems = () => {

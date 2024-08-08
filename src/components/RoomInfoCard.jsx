@@ -1,4 +1,5 @@
 import { PropTypes } from 'prop-types'
+import { Navigate } from 'react-router-dom'
 
 
 const RoomInfoCard = (
@@ -12,7 +13,7 @@ const RoomInfoCard = (
                 <div className="text-container flex flex-col justify-center items-start ">
                 <h2 className="uppercase text-[14px] lg:text-[16px] mb-2">{heading}</h2>
                 <h3 className="uppercase font-normal text-[12px] lg:text-[14px] text-text-color-trans">{description}</h3>
-                <button className="uppercase mt-[3rem] btn btn-cart-alt text-[14px] ">{btnText}</button>
+                <button className="uppercase mt-[3rem] btn btn-cart-alt text-[14px] " onClick={<Navigate to="/hostels" />}>{btnText}</button>
                 </div>
             </div>
             <div className={` bg-cover bg-center ${pictureStyles}`}  style={{backgroundImage:`URL(/${image})`}} >
