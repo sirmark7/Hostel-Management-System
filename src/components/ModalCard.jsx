@@ -17,7 +17,7 @@ const ModalCard= (
            {children}
         </div>
 
-         </div>
+         </div> 
     <span className={`overlay ${isActive?'active':''}` }></span>
         </>
   )

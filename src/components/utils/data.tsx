@@ -576,44 +576,44 @@ export const wishlist = [
 
 export const faqs = [
   {
-    heading: "BOOKING STATUS",
+    heading: "BOOKING ROOMS",
     questions: [
       {
-        title: "WHERE CAN I GET SAHARA PRODUCTS IN GHANA?",
-        text: "",
+        title: "How do I book a room online?",
+        text: "To book a room online, visit our website and navigate to the 'Book a Room' section. Select your preferred room type, check availability for your desired dates, and follow the prompts to complete your booking.",
       },
       {
-        title: "WHEN CAN I GET PRODUCTS THAT ARE OUT OF STOCK?",
-        text: "",
+        title: "Can I make a reservation without a credit card?",
+        text: "A valid credit card is required to secure your reservation. However, we do offer alternative payment methods for certain bookings. Please contact our customer service for more information.",
       },
       {
-        title: "WHERE CAN I GET SAHARA PRODUCTS INTERNATIONALLY?",
-        text: "",
+        title: "Is there a minimum stay requirement?",
+        text: "Yes, some of our rooms have a minimum stay requirement, especially during peak seasons or special events. Please check the room details during the booking process for specific requirements.",
       },
       {
-        title: "HOW DO I QUALIFY FOR FREE SHIPPING?",
-        text: "",
+        title: "Can I make a group booking for multiple rooms?",
+        text: "Absolutely! For group bookings, please contact our reservations team directly. We can assist you with booking multiple rooms and offer special rates for large groups.",
       },
     ],
   },
   {
-    heading: "RETURNS",
+    heading: "RETURNS AND REFUNDS",
     questions: [
       {
-        title: "WHERE CAN I GET SAHARA PRODUCTS IN GHANA?",
-        text: "",
+        title: "What is your refund policy for cancellations?",
+        text: "Our refund policy varies depending on the rate and time of cancellation. Generally, cancellations made at least 48 hours before the check-in date are eligible for a full refund. Please review the specific cancellation policy for your booking during the reservation process.",
       },
       {
-        title: "WHEN CAN I GET PRODUCTS THAT ARE OUT OF STOCK?",
-        text: "",
+        title: "How long does it take to process a refund?",
+        text: "Refunds are typically processed within 7-10 business days. The time it takes for the refund to appear in your account may vary depending on your bank or payment provider.",
       },
       {
-        title: "WHERE CAN I GET SAHARA PRODUCTS INTERNATIONALLY?",
-        text: "",
+        title: "Can I get a refund if I check out early?",
+        text: "Refunds for early check-outs depend on the terms of your booking. Please refer to the specific conditions of your reservation or contact our front desk for assistance with early check-out refunds.",
       },
       {
-        title: "HOW DO I QUALIFY FOR FREE SHIPPING?",
-        text: "",
+        title: "What should I do if I have not received my refund?",
+        text: "If you have not received your refund within the expected timeframe, please contact our customer service team. Provide your booking details and proof of cancellation, and we will investigate the issue promptly.",
       },
     ],
   },

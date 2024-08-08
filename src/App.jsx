@@ -12,6 +12,7 @@ import CustomerService from './components/CustomerService'
 import FAQs from './pages/FAQs'
 import ContactUs from './pages/ContactUs'
 import AboutPolicy from './pages/AboutPolicy'
+import Wishlist from './pages/Wishlist'
 function App() {
 
     return (
@@ -24,12 +25,12 @@ function App() {
           <Route index element={<RoomList/>} />
           <Route path=':roomId' element={<RoomDetail/>} />
         </Route>
+        <Route path='wishlist' element={<Wishlist/>} />
         <Route path='customer_service' element={<CustomerServicePage/>}>
           <Route index element={<CustomerService/>} />
           <Route path= "faqs" element={<FAQs/>} />
           <Route path='contact_us' element={<ContactUs/>} />
           <Route path=':serviceId' element={<AboutPolicy/>} />
-
         </Route>
       </Routes>
     </AppContext>  

@@ -1,7 +1,7 @@
-import React from 'react'
-import { Testimony } from '@/src/interfaces'
+
+import { PropTypes } from 'prop-types'
 import { AiFillStar } from 'react-icons/ai'
-const TestimonialCard = ({testimony,customer}:Testimony) => {
+const TestimonialCard = ({testimony,customer}) => {
   return (
     <div className='text-white flex flex-col justify-center mb-5 items-center h-full w-full '  >
         <span className='flex  w-full justify-center items-center text-[30px] '>
@@ -16,5 +16,8 @@ const TestimonialCard = ({testimony,customer}:Testimony) => {
     </div>
   )
 }
-
+TestimonialCard.propTypes={
+testimony:PropTypes.string,
+customer:PropTypes.string
+}
 export default TestimonialCard

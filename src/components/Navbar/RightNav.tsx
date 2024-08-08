@@ -107,7 +107,7 @@ const path =useLocation()
             )}
           </span>
         </div>
-        <NavLink className="" to="/account/wishlist">
+        <NavLink className="" to="/wishlist">
           <AiOutlineHeart className="nav-item cursor-pointer  font-normal text-[48px] p-3" />
           {/* <img className=' nav-item cursor-pointer ' src='/saved.svg' alt='wishlist' width='48' height='48'/> */}
         </NavLink>
