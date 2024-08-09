@@ -3,7 +3,7 @@ import CustomerServiceLayout from "../components/CustomerService/CustomerService
 import PageLayout from "../components/PageLayout"
 const CustomerServicePage = () => {
   return (
-    <PageLayout>
+    <PageLayout title="Custmer Services">
     <CustomerServiceLayout>
         <Outlet/>
     </CustomerServiceLayout>

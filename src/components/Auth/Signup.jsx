@@ -1,6 +1,8 @@
-import {useState} from 'react'
+import {useContext, useState} from 'react'
 import Button from '../Button'
 import { PropTypes } from "prop-types";
+import { UserContext } from '../store/AppContext';
+import toast from 'react-hot-toast';
 const Signup = ({toggleForm}) => {
     
     const [email,setEmail]=useState('')
@@ -9,15 +11,34 @@ const Signup = ({toggleForm}) => {
     const [phoneNumber,setPhoneNumber]=useState('')
     const [confirmPassword,setConfirmPassword]=useState('')
     const [termsOfUse,setTermsOfUse]=useState('checked')
-    const handleSignUp=()=>{}
-  return (
-    <form >
-        <span className='w-full flex items-center justify-between '>
 
-        <div  className="flex items-center justify-between gap-3">
-        <label htmlFor='email' className="capitalize">Email </label>
+    const {userData,setUserData}=useContext(UserContext)
+    const handleSignUp=async(e)=>{
+        e.preventDefault()
+        if(!email || !username || !phoneNumber || !password || !confirmPassword){
+            toast.error('All fields are required')
+            return
+        }
+         if(confirmPassword !== password){
+            toast.error('Passwords do not match')
+            return
+         }
+      
+        await setUserData(()=>({ email,username,password,phoneNumber,confirmPassword}))
+        toast.success('Account created successfuly')
+        toggleForm()
+        console.log(userData);
+        
+    }
+  return (
+    <form className=" w-full flex flex-col gap-5 justify-center items-center py-7" >
+        <span className='w-full flex items-center justify-between gap-5'>
+
+        <div  className=" w-full flex-1 flex flex-col items-start justify-between ">
+        <label htmlFor='email' className="capitalize">Email * </label>
         <input
-        className="w-[80%] p-3 outline-none rounded-lg border-[#ccc] border-[1px]"
+        required
+        className="w-full px-1 outline-none rounded-lg border-[#ccc] border-[1px] text-[14px]"
         placeholder={`Email`}
         id='email'
         type="email"
@@ -26,12 +47,13 @@ const Signup = ({toggleForm}) => {
         />
         </div>
 
-        <div  className="flex items-center justify-between gap-3">
+        <div  className=" w-full flex-1 flex flex-col items-start justify-between">
         <label htmlFor='username' className="capitalize">
-        Username
+        Username *
         </label>
         <input
-        className="w-[80%] p-3 outline-none rounded-lg border-[#ccc] border-[1px]"
+        required
+        className="w-full px-1 outline-none rounded-lg border-[#ccc] border-[1px] text-[14px]"
         placeholder={`Username`}
         id='username'
         type="text"
@@ -43,13 +65,14 @@ const Signup = ({toggleForm}) => {
 
 
 
-        <span className='w-full flex items-center justify-between '>
-            <div  className="flex items-center justify-between gap-3">
+        <span className='w-full flex items-center justify-between gap-5 '>
+            <div  className=" w-full flex-1 flex flex-col items-start justify-between ">
             <label htmlFor='password' className="capitalize">
-            Password
+            Password *
             </label>
             <input
-            className="w-[80%] p-3 outline-none rounded-lg border-[#ccc] border-[1px]"
+            required
+            className="w-full px-1 outline-none rounded-lg border-[#ccc] border-[1px] text-[14px]"
             placeholder={`Password`}
             id='password'
             type="password"
@@ -58,12 +81,13 @@ const Signup = ({toggleForm}) => {
             />
             </div>
 
-            <div  className="flex items-center justify-between gap-3">
+            <div  className=" w-full flex-1 flex flex-col items-start justify-between ">
             <label htmlFor='phone_number' className="capitalize">
-            Phone Number
+            Phone Number *
             </label>
             <input
-            className="w-[80%] p-3 outline-none rounded-lg border-[#ccc] border-[1px]"
+            required
+            className="w-full px-1 outline-none rounded-lg border-[#ccc] border-[1px] text-[14px]"
             placeholder={`Phone Number`}
             id='phone_number'
             type="text"
@@ -74,12 +98,13 @@ const Signup = ({toggleForm}) => {
 
         </span>
         <span className='w-full flex items-center justify-between '>
-            <div  className="flex items-center justify-between gap-3">
+            <div  className=" w-full flex-1 flex flex-col items-start justify-between ">
             <label htmlFor='confirm_password' className="capitalize">
-            Confirm Password
+            Confirm Password *
             </label>
             <input
-            className="w-[80%] p-3 outline-none rounded-lg border-[#ccc] border-[1px]"
+            required
+            className="w-full px-1 outline-none rounded-lg border-[#ccc] border-[1px] text-[14px]"
             placeholder={`Confirm Password`}
             id='confirm_password'
             type="password"
@@ -87,12 +112,11 @@ const Signup = ({toggleForm}) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             />
             </div> 
-            <div  className="flex items-center justify-between gap-3">
-            <label htmlFor='terms_of_use' className="capitalize">
-            Agree to Terms and conditions
-            </label>
+            <div  className=" w-full flex-1 flex items-center justify-center ">
+            
             <input
-            className="w-[80%] p-3 outline-none rounded-lg border-[#ccc] border-[1px]"
+            required
+            className="w-full outline-none rounded-lg border-[#ccc] border-[1px] text-[14px]"
             placeholder={``}
             id='terms_of_use'
             type="checkbox"
@@ -100,20 +124,23 @@ const Signup = ({toggleForm}) => {
             checked={termsOfUse}
             onChange={(e) => setTermsOfUse(e.target.checked)}
             />
+            <label htmlFor='terms_of_use' className="capitalize cursor-pointer text-[12px]">
+            Agree to Terms and conditions
+            </label>
             </div> 
 
         </span>
 
-        <div>
-            <Button text='Sign In' onClick={handleSignUp}  />     
-            <p> Already have an account <span onClick={toggleForm} className=" text-btn-bg cursor-pointer font-bold">SignIn</span> </p>
+        <div className="w-full flex flex-col items-center justify-between gap-3">
+            <Button text='Sign Up' onClick={handleSignUp} styles='w-full rounded-lg'  />     
+            <p> Already have an account <span onClick={toggleForm} className=" text-btn-bg cursor-pointer font-bold"> Signin</span> </p>
         </div>
 
     </form>
   )
 }
 Signup.propTypes={
-    toggleForm:PropTypes.function
+    toggleForm:PropTypes.func
 }
 
 export default Signup

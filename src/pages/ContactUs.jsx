@@ -10,7 +10,7 @@ const ContactUs = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [orderNumber, setOrderNumber] = useState("");
+  const [bookingNumber, setBookingNumber] = useState("");
   const [title, setTitle] = useState("");
   const [comment, setComment] = useState("");
 
@@ -77,12 +77,12 @@ const ContactUs = () => {
     ],
     [
       {
-        name: "order number",
-        placeholder: "Your order number if applicable",
-        id: "order_number",
+        name: "Booking Number",
+        placeholder: "Your Booking number if applicable",
+        id: "booking_number",
         type: "text",
-        value: orderNumber,
-        update: setOrderNumber,
+        value: bookingNumber,
+        update: setBookingNumber,
       },
       {
         name: "title",

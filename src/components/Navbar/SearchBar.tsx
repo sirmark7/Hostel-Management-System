@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { redirect,useLocation } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import useFilters from "../store/useFilters";
 
 
@@ -8,6 +8,7 @@ const SearchBar = ({ styles }: { styles: string }) => {
   const [search, setSearch] = useState("");
   const { addSearchQuery } = useFilters();
   const path =useLocation().pathname
+  const redirect=useNavigate()
 
   const searchShop = (e) => {
     e.preventDefault();

@@ -397,14 +397,14 @@ export const allReviews = [
 
 export const userInfo= {
   personalInfo: {
-    name: "N. Noel Emmanuel",
-    email: "nneuid@gmail.com",
-    password: "Change Password",
+    name: "John Doe",
+    email: "doe@gmail.com",
+    password: "password",
   },
   shippingInfo: {
-    name: "N. Noel Emmanuel",
-    email: "nneuid@gmail.com",
-    phone: "+1234567890",
+    name: "John Doe",
+    email: "doe@gmail.com",
+    phone: "+2334567890",
     country: "Country goes here",
     address: "Address goes here",
     region: "city goes her",

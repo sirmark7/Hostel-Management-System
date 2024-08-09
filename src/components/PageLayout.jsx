@@ -1,17 +1,18 @@
 import { PropTypes } from 'prop-types'
 import NavBar from './Navbar/NavBar'
 // import SideBar from './Sidebar/SideBar'
-import { useEffect } from 'react'
-function PageLayout({children,title='MJ Hostels || Home'}) {
+import { useEffect} from 'react'
+function PageLayout({children,title='Home'}) {
 
 
     useEffect(()=>{
-        document.title=title;
+        document.title= `MJ Hostels || ${title}`;
          window.scrollTo(0, 0)
     },[])
-
+    
+  
   return (
-
+      <>
       <div className=' w-full h-full flex flex-col items-center justify-start px-[18px] ' >
          <header
               className="w-full relative h-[10vh] flex flex-col justify-start"
@@ -27,6 +28,7 @@ function PageLayout({children,title='MJ Hostels || Home'}) {
             {children}
         </div>
       </div>
+      </>
   )
 }
 

@@ -98,7 +98,7 @@ const path =useLocation()
               <>
                 <NavLink
                   className={`hover:bg-[#CCCCCC] flex justify-start text-left gap-4 items-center text-text-color w-full p-2`}
-                  to={`/sign-in`}
+                  to={`/auth`}
                 >
                   <BiLogIn />
                   Sign in

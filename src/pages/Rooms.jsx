@@ -4,7 +4,7 @@ import Footer from  "../components/Footer"
 import { Outlet } from "react-router-dom";
 const Rooms = () => {
   return (
-    <PageLayout>
+    <PageLayout title="Hostels">
      <Outlet/>
     <Footer/>
     </PageLayout>
