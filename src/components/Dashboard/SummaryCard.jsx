@@ -1,13 +1,6 @@
-import Link from "next/link";
-
-interface SummaryCardProps {
-  title: string;
-  icon: React.ReactNode;
-  value: string | number;
-  path: string;
-}
-
-const SummaryCard: React.FC<SummaryCardProps> = ({
+import {Link} from "react-router-dom";
+import { PropTypes } from "prop-types";
+const SummaryCard = ({
   title,
   icon,
   value,
@@ -15,7 +8,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
 }) => {
   return (
     <Link
-      href={path}
+      to={path}
       className="flex flex-col flex-grow gap-4 shadow-lg min-h-[150px] p-4 transition-all hover:bg-slate-300 bg-slate-100 rounded-lg"
     >
       <header className="flex items-center justify-between text-2xl font-semibold">
@@ -28,5 +21,10 @@ const SummaryCard: React.FC<SummaryCardProps> = ({
     </Link>
   );
 };
-
+SummaryCard.propTypes={
+   title:PropTypes.string,
+  icon:PropTypes.string,
+  value:PropTypes.string,
+  path:PropTypes.string,
+}
 export default SummaryCard;

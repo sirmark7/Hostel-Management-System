@@ -156,7 +156,7 @@ export const rooms = [
 
 export const accountNavItems= [
   {
-    name: "Your Sahara Account",
+    name: "Your Account",
     path: "profile",
     mode: "",
   },

@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect} from "react"
 import Button from "../Button";
 import { PropTypes } from "prop-types";
-import { UserContext } from "../store/AppContext";
+import { UserContext,AuthContext } from "../store/AppContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 // import { userInfo } from "../utils/data";
@@ -11,6 +11,7 @@ const Login = ({toggleForm}) => {
     const [password,setPassword]=useState('')
     const [forgotPassword,setForgotPassword]=useState(false)
     const {userData,setUserData}=useContext(UserContext)
+    const {setIsLogged}=useContext(AuthContext)
     const route=useNavigate()
     const handleLogin=async(e)=>{
       e.preventDefault()
@@ -22,6 +23,7 @@ const Login = ({toggleForm}) => {
         const userPassword=userData.password
         if(userEmail==email && userPassword==password){
         toast.success('Login SuccessFull')
+        await setIsLogged(true)
         route('/dashboard')
         }else{
         toast.error('Invalid Email or Password')

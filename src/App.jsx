@@ -13,6 +13,9 @@ import FAQs from './pages/FAQs'
 import ContactUs from './pages/ContactUs'
 import AboutPolicy from './pages/AboutPolicy'
 import Wishlist from './pages/Wishlist'
+import Dashboard from './components/Dashboard/userDashboard/Dashboard'
+import RoomListing from './components/Dashboard/userDashboard/RoomListing'
+// import ProtectedRoute from './components/ProtectedRoute'
 function App() {
 
     return (
@@ -20,6 +23,7 @@ function App() {
       <Toaster/>
       <Routes>  
         <Route path='/' element={<LandingPage/>} />
+        
         <Route path='auth' element={<AuthLayout/>}/>
         <Route path='hostels' element={<Rooms/>} >
           <Route index element={<RoomList/>} />
@@ -32,6 +36,13 @@ function App() {
           <Route path='contact_us' element={<ContactUs/>} />
           <Route path=':serviceId' element={<AboutPolicy/>} />
         </Route>
+        {/* <Route element={<ProtectedRoute/>}> */}
+          <Route path='dashboard' element={<Dashboard/>}>
+            <Route index element={<RoomListing/>} />
+            <Route path=':roomId' element={<RoomDetail/>} />
+          </Route>
+          
+        {/* </Route> */}
       </Routes>
     </AppContext>  
   )

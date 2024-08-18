@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import LeftNav from "./LeftNav";
+import LeftNav from "./SideNavBar";
 import RightNav from "./RightNav";
 import HamburgerNav from "./HamburgerNav";
 import SearchBar from "./SearchBar";
 
-const NavBar = () => {
+const NavBar = ({dasboard=false}) => {
   const [showCart, setShowCart] = useState(false);
   // const { userId } = useAuth();
   // const pathname = usePathname();
@@ -18,7 +18,8 @@ const NavBar = () => {
   // ) : 
  return (
     <nav className="w-full max-w-[1512px] bg-[#F1F1F1] z-50 flex flex-1 items-start py-2 px-[1rem] lg:px-[5rem] fixed top-0 left-1/2 -translate-x-1/2 pt-[20px] justify-between gap-5 ">
-      <LeftNav />
+ 
+      <LeftNav dasboard={dasboard} />
       <SearchBar styles=" flex" />
       <RightNav />
       <HamburgerNav setShowCart={setShowCart} />

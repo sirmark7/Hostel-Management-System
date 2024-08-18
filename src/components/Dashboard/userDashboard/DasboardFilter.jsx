@@ -1,14 +1,21 @@
-import FilterCard from "./FilterCard";
-import { categories } from "./utils/data";
-import useFilters from "./store/useFilters"
+import FilterCard from "../../FilterCard";
+import { categories } from "../../utils/data";
+import useFilters from "../../store/useFilters"
 import { PropTypes } from "prop-types";
-const Filters = () => {
+import { useState } from "react";
+import { FaFilter } from "react-icons/fa6";
+const DashboardFilters = () => {
 
   const {addCategoryFilter,addPriceFilter}=useFilters()
+  const [showFilters,setShowFilters]=useState(false)
 
   return (
-    <div >
-      <div className=" hidden md:flex flex-col gap-5 mt-5  min-h-[70vh]">
+    <div className="relative w-full flex justify-end tansition" >
+        <span className="flex mr-[20px] cursor-pointer text-primary-color whitespace-nowrap justify-center items-center gap-2" onClick={()=>setShowFilters(prev=>!prev)}>
+            <FaFilter className="font-bold text-[20px]" />
+             Filters
+        </span>
+      <div className={` transition  ${showFilters?"right-[10px]":'right-[-300px]'} top-11 bg-white p-2 absolute right-0 h-fit hidden md:flex flex-col z-50 gap-5 mt-2 `}>
         {/* Categories */}
         <FilterCard
           id={0}
@@ -42,7 +49,7 @@ const Filters = () => {
     </div>
   );
 };
-Filters.propTypes={
+DashboardFilters.propTypes={
   styles:PropTypes.string
 }
-export default Filters;
+export default DashboardFilters;

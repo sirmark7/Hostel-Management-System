@@ -1,37 +1,24 @@
-"use client";
 import { useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 import TableAction from "./TableActions";
 import toast from "react-hot-toast";
-import Loader from "@/app/components/Loader";
+import Loader from "../Loader";
 
-interface TableProps {
-  columns: string[];
-  rows: any[];
-  manageRoutes: {
-    label: string;
-    type?: string;
-    fxn?: Function;
-    href?: string;
-    icon?: React.ReactNode;
-    name: string;
-  }[];
-}
 
-const Table: React.FC<TableProps> = ({ columns, rows, manageRoutes }) => {
+
+const Table= ({ columns, rows, manageRoutes }) => {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const router = useNavigate();
 
-  const managefxn = async (label: string, href: string, id: string) => {
+  const managefxn = async (label, href, id) => {
     if (label.toLowerCase() === "edit") {
-      router.push(`${href}/${id}`);
+      router(`${href}/${id}`);
       return;
     }
     if (label.toLowerCase() === "delete") {
       setLoading(true);
       try {
-        const deleted = await axios.delete(`${href}/${id}`);
+      
         toast.success("Deleted!");
         router.refresh();
       } catch (error) {

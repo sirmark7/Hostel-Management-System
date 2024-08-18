@@ -12,10 +12,9 @@ const SearchBar = ({ styles }: { styles: string }) => {
 
   const searchShop = (e) => {
     e.preventDefault();
-    if(path!=="/hostels"){
-      redirect("/hostels");
-    }
+    if(path.includes("/hostels") || path.includes('/dashboard') ){
     addSearchQuery(search);
+    }else redirect("/hostels");
   };
 
   return (

@@ -1,23 +1,10 @@
-"use client";
-import Link from "next/link";
-import React, { useState } from "react";
+import {Link} from "react-router-dom";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
-export interface TableActionProps {
-  actions: {
-    label: string;
-    type?: string;
-    fxn?: Function;
-    href?: string;
-    icon?: React.ReactNode;
-    name: string;
-  }[];
-  actionFxn: (label: string, href: string, id: string) => void;
-  id: string;
-}
 
-const TableAction: React.FC<TableActionProps> = ({
+const TableAction= ({
   actions,
   actionFxn,
   id,

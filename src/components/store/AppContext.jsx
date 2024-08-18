@@ -2,6 +2,7 @@ import { PropTypes } from "prop-types";
 import { createContext, useEffect, useState } from "react";
 import {rooms} from "../utils/data";
 export const WishlistContext =createContext([])
+export const BookedContext =createContext([])
 export const HostelsContext =createContext([])
 export const UserContext =createContext({})
 export const FilterContext =createContext({})
@@ -13,6 +14,7 @@ const AppContext = ({children}) => {
     const [hostelData,setHostelData]=useState([])
     const [filteredData, setFilteredData] = useState([]);
     const [wishlistData,setWishlistData]=useState([])
+    const [booked,setBooked]=useState([])
     const [userData,setUserData]=useState([])
 
     useEffect(()=>{
@@ -26,9 +28,11 @@ const AppContext = ({children}) => {
         <HostelsContext.Provider value={{hostelData,setHostelData}}>
             <FilterContext.Provider value={{filteredData,setFilteredData}}>
                 <UserContext.Provider value={{userData,setUserData}}>
+                    <BookedContext.Provider value={{booked,setBooked}}>
                     <WishlistContext.Provider value={{wishlistData,setWishlistData}}>
                         {children}
                     </WishlistContext.Provider>
+                    </BookedContext.Provider>
                 </UserContext.Provider>
             </FilterContext.Provider>
         </HostelsContext.Provider>

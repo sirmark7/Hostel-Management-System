@@ -1,6 +1,6 @@
 import SummaryCard from "./SummaryCard";
-
-const SummaryCards = ({ cards }: { cards: any[] }) => {
+import { PropTypes } from "prop-types";
+const SummaryCards = ({ cards }) => {
   return (
     <div className="flex justify-between gap-3 w-full flex-wrap">
       {cards.map((card) => (
@@ -15,5 +15,7 @@ const SummaryCards = ({ cards }: { cards: any[] }) => {
     </div>
   );
 };
-
+SummaryCards.propTypes={
+  cards:PropTypes.array
+}
 export default SummaryCards;

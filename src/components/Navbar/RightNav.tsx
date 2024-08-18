@@ -21,7 +21,7 @@ const path =useLocation()
     // signOut();
   };
 
-  const userId= false
+  const userId= path.pathname.includes('dashboard')?true:false
 
   const navIcons: any[] = [
     <AiOutlineUser
@@ -76,11 +76,11 @@ const path =useLocation()
                     onClick={handleActive}
                     key={index}
                     className={`hover:bg-[#CCCCCC] ${
-                      path.pathname == "/account/" + item.path ? "bg-[#CCCCCC] " : ""
+                      path.pathname == "/dashboard/" + item.path ? "bg-[#CCCCCC] " : ""
                     } flex justify-start text-left gap-4 items-center text-text-color w-full p-2 ${
                       item.mode
                     }`}
-                    to={`/account/${item.path}`}
+                    to={`/dashboard/${item.path}`}
                   >
                     {navIcons[index]}
                     {item.path == "profile" ? "Account" : item.name}

@@ -1,6 +1,9 @@
 import { PropTypes } from "prop-types";
 const DashboardLayout = ({ children }) => {
-  return <div className="flex items-center justify-center">{children}</div>;
+  return (<div className="flex relative items-start justify-start h-[900px] overflow-y-hidden ">
+
+          {children}
+          </div>)
 };
 DashboardLayout.propTypes={
   children:PropTypes.node
