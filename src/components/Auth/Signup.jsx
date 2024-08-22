@@ -1,35 +1,45 @@
-import {useContext, useState} from 'react'
+import { useContext, useState} from 'react'
 import Button from '../Button'
 import { PropTypes } from "prop-types";
-import { UserContext } from '../store/AppContext';
 import toast from 'react-hot-toast';
+import useRequestResorce from '../store/useRequestresource';
+import { AuthContext, LoaderContext } from '../store/AppContext';
 const Signup = ({toggleForm}) => {
     
     const [email,setEmail]=useState('')
-    const [username,setUsername]=useState('')
+    const [fullName,setFullName]=useState('')
     const [password,setPassword]=useState('')
     const [phoneNumber,setPhoneNumber]=useState('')
     const [confirmPassword,setConfirmPassword]=useState('')
     const [termsOfUse,setTermsOfUse]=useState('checked')
-
-    const {userData,setUserData}=useContext(UserContext)
+    const {signUp}=useRequestResorce()
+    const {setIsLogged}=useContext(AuthContext)
+  const {setIsLoading,}=useContext(LoaderContext)
     const handleSignUp=async(e)=>{
         e.preventDefault()
-        if(!email || !username || !phoneNumber || !password || !confirmPassword){
+        setIsLoading(true)
+        if(!email || !fullName || !phoneNumber || !password || !confirmPassword){
             toast.error('All fields are required')
             return
         }
          if(confirmPassword !== password){
             toast.error('Passwords do not match')
             return
-         }
-      
-        await setUserData(()=>({ email,username,password,phoneNumber,confirmPassword}))
-        toast.success('Account created successfuly')
-        toggleForm()
-        console.log(userData);
-        
-    }
+         }         
+            await signUp(fullName,email,phoneNumber,password)
+           .then((res)=>{
+            setIsLoading(false)
+            if(res.statusCode !==201 ){
+            toast.error(res)
+            return
+
+            }
+
+                toggleForm()
+              }
+           ) 
+           }
+
   return (
     <form className=" w-full flex flex-col gap-5 justify-center items-center py-7" >
         <span className='w-full flex items-center justify-between gap-5'>
@@ -48,17 +58,17 @@ const Signup = ({toggleForm}) => {
         </div>
 
         <div  className=" w-full flex-1 flex flex-col items-start justify-between">
-        <label htmlFor='username' className="capitalize">
-        Username *
+        <label htmlFor='fullName' className="capitalize">
+        fullName *
         </label>
         <input
         required
         className="w-full px-1 outline-none rounded-lg border-[#ccc] border-[1px] text-[14px]"
-        placeholder={`Username`}
-        id='username'
+        placeholder={`Full Name`}
+        id='fullName'
         type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        value={fullName}
+        onChange={(e) => setFullName(e.target.value)}
         />
         </div>
         </span>

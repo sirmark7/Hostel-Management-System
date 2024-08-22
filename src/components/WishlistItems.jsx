@@ -1,9 +1,20 @@
+import { PropTypes } from "prop-types";
 import RoomCard  from "./RoomCard";
 import useWishlist from "./store/useWishlist";
+import { useContext, useEffect } from "react";
+import toast from "react-hot-toast";
+import { AuthContext } from "./store/AppContext";
 
 
-const WishlistItems = () => {
+const WishlistItems = ({wishlist=[{}]}) => {
   const {   wishlistData } = useWishlist();
+  const {isLogged}=useContext(AuthContext)
+
+  useEffect(()=>{
+    if(!isLogged){
+      toast.error('Login to save whislist Items')
+    }
+  })
   return (
     <div className=" w-full gap-5 flex-1 flex flex-col justify-start mb-10 items center">
       <span>
@@ -41,5 +52,7 @@ const WishlistItems = () => {
     </div>
   );
 };
-
+WishlistItems.propTypes={
+  wishlist:PropTypes.array
+}
 export default WishlistItems;

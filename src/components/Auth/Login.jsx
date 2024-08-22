@@ -1,38 +1,37 @@
-import { useState, useContext, useEffect} from "react"
+import { useState, useEffect, useContext} from "react"
 import Button from "../Button";
 import { PropTypes } from "prop-types";
-import { UserContext,AuthContext } from "../store/AppContext";
+// import { UserContext } from "../store/AppContext";
 import { useNavigate } from "react-router-dom";
+import useRequestResorce from "../store/useRequestresource";
+import { AuthContext, LoaderContext } from "../store/AppContext";
 import toast from "react-hot-toast";
 // import { userInfo } from "../utils/data";
 const Login = ({toggleForm}) => {
-
+  const {setIsLogged}=useContext(AuthContext)
+  const {setIsLoading,}=useContext(LoaderContext)
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     const [forgotPassword,setForgotPassword]=useState(false)
-    const {userData,setUserData}=useContext(UserContext)
-    const {setIsLogged}=useContext(AuthContext)
+    // const {userData,setUserData}=useContext(UserContext)
+    const {login}=useRequestResorce()
     const route=useNavigate()
     const handleLogin=async(e)=>{
       e.preventDefault()
-    
-      if(userData){
-        console.log(userData);
-        
-        const userEmail=userData.email
-        const userPassword=userData.password
-        if(userEmail==email && userPassword==password){
-        toast.success('Login SuccessFull')
-        await setIsLogged(true)
-        route('/dashboard')
-        }else{
-        toast.error('Invalid Email or Password')
-        setForgotPassword(true)
+      setIsLoading(true)
+    await login(email,password)
+    .then((res)=>{
+      setIsLoading(false)
+      if(res.statusCode!==200){
+        toast.error(res)
+        return;
       }
+      setIsLogged(true)
+      route('/dashboard')
+      })
       }
-    }
 useEffect(()=>{
-  setUserData(userData)
+  // setUserData(userData)
 },[])
 
   return (

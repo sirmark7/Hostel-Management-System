@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { NavLink, useLocation ,useNavigate} from "react-router-dom";
 import { accountNavItems } from "../utils/data";
 import SearchBar from "./SearchBar";
 import {
@@ -10,18 +10,24 @@ import {
 } from "react-icons/ai";
 import { BiLogIn, BiLogOut } from "react-icons/bi";
 import { BsBag } from "react-icons/bs";
+import { AuthContext } from "../store/AppContext";
 
 
 
 const RightNav= () => {
 const path =useLocation()
-  const [showMenu, setShowMenu] = useState(false);
-
+const navigate = useNavigate()
+const [showMenu, setShowMenu] = useState(false);
+const {setIsLogged,isLogged}=useContext(AuthContext)
+const userId =localStorage.getItem('userId')
   const logout = () => {
+    localStorage.clear();
+    setIsLogged(false)
+    navigate('/auth')
     // signOut();
   };
 
-  const userId= path.pathname.includes('dashboard')?true:false
+  // const userId= path.pathname.includes('dashboard')?true:false
 
   const navIcons: any[] = [
     <AiOutlineUser
@@ -67,7 +73,7 @@ const path =useLocation()
               showMenu ? "absolute" : "hidden"
             }`}
           >
-            {userId ? (
+            {isLogged ? (
               <>
                 {/* <AdminDashboardLink /> */}
 

@@ -4,6 +4,8 @@
   gap: 8px;
   transition: all .3s ease-in-out;
 }
+
+
 .left-nav.nav-items{
   justify-content: flex-start;
   gap: 1rem;

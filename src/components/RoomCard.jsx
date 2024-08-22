@@ -1,7 +1,7 @@
 
 
 import { PropTypes } from "prop-types";
-import { NavLink } from "react-router-dom";
+import { NavLink ,useNavigate} from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useWishlist from "./store/useWishlist";
@@ -14,10 +14,12 @@ import {
   AiFillHeart,
 } from "react-icons/ai";
 
+
 const RoomCard = ({
   cardStyles,
   imgStyles,
   id,
+  detailLink,
   name,
   category,
   images,
@@ -26,7 +28,7 @@ const RoomCard = ({
   product,
 }) => {
   const [currentImg, setCurrentImg] = useState(0);
-
+const navigate=useNavigate()
  
   const { wishlistData, addToWishlist, removeFromWishlist } = useWishlist(product);
 
@@ -64,12 +66,12 @@ const RoomCard = ({
         )}
 
         <div
-          className={`product-imgs w-full bg-cover bg-center transition ease delay-150 ${imgStyles} `}
+          className={`product-imgs w-full bg-cover bg-center transition-all duration-150 ${imgStyles} `}
           style={{
-            backgroundImage: `url(./rooms/${
+            backgroundImage: `url(../../../server/src/uploads/${
               images && images.length > 0
                 ? images[currentImg]
-                : "./rooms/room_a_1.jpg"
+                : "../../../server/src/uploads/room_a_1.jpg"
             })`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -83,7 +85,7 @@ const RoomCard = ({
         <p className="category py-2 text-text-color-trans text-xs ">
           {category}
         </p>
-        <NavLink to={`/hostels/${id}`} className="leading-[20px] text-[16px]">
+        <NavLink to={`${detailLink&&detailLink}/${id}`} className="leading-[20px] text-[14px]">
           {name}
         </NavLink>
         <div className="rating flex py-2 justify-start items-center ">
@@ -94,10 +96,7 @@ const RoomCard = ({
       <div className=" w-full footer-section flex justify-between items-center mt-8  ">
         <button
           disabled={alreadyInCart ? true : false}
-          onClick={() => {
-           
-            toast.success("Item added to wishlist");
-          }}
+          onClick={()=>navigate(`${detailLink&&detailLink}/${id}`)}
           className="btn btn-cart text-[14px] cursor-pointer"
         >
           {alreadyInCart ? "IN WISHLIST" : "BOOK NOW"}
@@ -114,7 +113,7 @@ RoomCard.propTypes={
     quantity:PropTypes.number,
   cardStyles:PropTypes.string,
   imgStyles:PropTypes.string,
-  id:PropTypes.number,
+  id:PropTypes.string,
   name:PropTypes.string,
   category:PropTypes.string,
   images:PropTypes.array,
@@ -123,6 +122,8 @@ RoomCard.propTypes={
   price:PropTypes.string,
   occupancy:PropTypes.number,
   product:PropTypes.object,
+  detailLink:PropTypes.string,
+  handleBooking:PropTypes.func
 }
 
 export default RoomCard;

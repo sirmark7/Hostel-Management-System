@@ -3,12 +3,14 @@ import RoomCard from "../RoomCard";
 // Import Swiper React components
 import { SwiperSlide } from "swiper/react";
 import { SwiperJs } from "../SwipperJs";
-import { useEffect} from "react";
-import {rooms} from '../utils/data'
+import { useContext, useEffect} from "react";
+// import {rooms} from '../utils/data'
+import { HostelsContext } from "../store/AppContext";
 
 // import axios from "axios";
 
 const FeaturedRooms = () => {
+  const {hostelData}=useContext(HostelsContext)
   // const [roomList, setRoomList] = useState([]);
 
   // const fetchFeaturedItems = async () => {
@@ -36,13 +38,13 @@ const FeaturedRooms = () => {
       />
 
       <SwiperJs>
-        {rooms.map((room) => (
-          <SwiperSlide key={room.id}>
+        {hostelData?.map((room) => (
+          <SwiperSlide key={room._id}>
             <RoomCard
             product={room}
               name={room.name}
               price={room.price ? room.price.toString() : "0.00"}
-              id={room.id}
+              id={room._id}
               category={room.category}
               images={room.images}
               description={room.description}

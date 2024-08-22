@@ -1,14 +1,15 @@
 
-import PageLayout from '../components/PageLayout'
 import Footer from '../components/Footer'
+import PageLayout from '../components/PageLayout'
 import WishlistItems from '../components/WishlistItems'
 
 const Wishlist = () => {
   return (
-    <PageLayout>
+    <PageLayout title='My Wishlist'>
         <WishlistItems/>
         <Footer/>
     </PageLayout>
+    
   )
 }
 

@@ -160,11 +160,7 @@ export const accountNavItems= [
     path: "profile",
     mode: "",
   },
-  {
-    name: "Orders",
-    path: "orders",
-    mode: "",
-  },
+ 
   {
     name: "Saved Items",
     path: "wishlist",

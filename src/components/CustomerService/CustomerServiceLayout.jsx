@@ -1,5 +1,4 @@
 
-import SideNav from "../Sidebar/SideNav"
 import { CustomerServiceNavItems } from "../utils/data"
 import AlternativeNavMini from "./AlternativeNavMini"
 import { PropTypes } from "prop-types"
@@ -7,6 +6,7 @@ import { RiCustomerService2Fill, RiContactsBookFill } from "react-icons/ri";
 import { MdAssignmentReturn, MdPrivacyTip } from "react-icons/md";
 import { FaQuestionCircle } from "react-icons/fa";
 import { GoLaw } from "react-icons/go";
+import SideNavHome from "../Sidebar/SideNavHome";
 export default function CustomerServiceLayout({children}) {
   const icons=[
   <RiCustomerService2Fill key={0} className="font-bold text-[20px]"/>,
@@ -17,10 +17,10 @@ export default function CustomerServiceLayout({children}) {
   <GoLaw key={5} className="font-bold text-[20px]" />
 
   ]
-  return <section className="flex flex-col md:flex-row items-start justify-start relative pt-8 mb-8 gap-5 ">
+  return ( <section className="flex flex-col w-full md:flex-row items-start justify-start relative mt-4 pt-8 mb-8 gap-5 ">
    <AlternativeNavMini/>
-    <SideNav navItems={CustomerServiceNavItems} linkPreFix='/customer_service' icons={icons} />
+    <SideNavHome navItems={CustomerServiceNavItems} linkPreFix='/customer_service' icons={icons} />
     {children}
-    </section>
+    </section>)
 }
 CustomerServiceLayout.propTypes={children:PropTypes.node}

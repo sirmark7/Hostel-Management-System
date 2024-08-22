@@ -1,5 +1,5 @@
 
-import {HostelsContext,FilterContext} from "../store/AppContext";
+import {HostelsContext,FilterContext} from "./AppContext";
 import { useContext, useState} from "react";
 
 

@@ -1,10 +1,10 @@
 
+import { useOutletContext } from "react-router-dom";
 import RoomCard from "../RoomCard";
-import {FilterContext} from "../store/AppContext";
-import { useContext } from "react";
+
 import RoomsLayout from "./RoomsLayout";
 const RoomList = () => {
-  const {filteredData}=useContext(FilterContext)
+const {filteredData}=useOutletContext()
 
   return (
     <RoomsLayout>
@@ -16,15 +16,16 @@ const RoomList = () => {
         start={start}
         end={end}
       /> */}
-      {filteredData.map((product) => (
+      {filteredData?.map((product) => (
         <RoomCard
-          key={product.id}
+          key={product._id}
           category={product.category.name}
           description={product.description}
           images={product.images}
           name={product.name}
           price={product.price.toString()}
-          id={product.id}
+          id={product._id}
+          detailLink='/hostels'
           rating={
             product.stars.length > 0
               ? product.stars.reduce((acc, s) => {
@@ -36,6 +37,7 @@ const RoomList = () => {
           imgStyles="h-[200px]"
           quantity={product.quantity}
           product={product}
+  
         />
       ))}
     </div>

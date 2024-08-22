@@ -13,9 +13,17 @@ import FAQs from './pages/FAQs'
 import ContactUs from './pages/ContactUs'
 import AboutPolicy from './pages/AboutPolicy'
 import Wishlist from './pages/Wishlist'
-import Dashboard from './components/Dashboard/userDashboard/Dashboard'
+// import Dashboard from './components/Dashboard/userDashboard/Dashboard'
 import RoomListing from './components/Dashboard/userDashboard/RoomListing'
-// import ProtectedRoute from './components/ProtectedRoute'
+import ProtectedRoute from './components/ProtectedRoute'
+import Dashboard from './components/Dashboard/userDashboard/Dashbaord'
+import { ErrorPage } from './pages/ErrorPage'
+import WishlistItems from './components/WishlistItems'
+import Profile from './components/Dashboard/Profile'
+import Bookings from './components/Dashboard/Bookings'
+// import PageLayout from './components/PageLayout'
+// import DashboardLayout from './components/Dashboard/DashboardLayout'
+
 function App() {
 
     return (
@@ -36,13 +44,16 @@ function App() {
           <Route path='contact_us' element={<ContactUs/>} />
           <Route path=':serviceId' element={<AboutPolicy/>} />
         </Route>
-        {/* <Route element={<ProtectedRoute/>}> */}
-          <Route path='dashboard' element={<Dashboard/>}>
+        <Route element={<ProtectedRoute/>}>
+        <Route exact path='dashboard' element={<Dashboard/>}>
             <Route index element={<RoomListing/>} />
-            <Route path=':roomId' element={<RoomDetail/>} />
-          </Route>
-          
-        {/* </Route> */}
+             <Route path='book/:roomId' element={<RoomDetail/>} />
+             <Route path='wishlist' element={<WishlistItems/>} />
+             <Route path='profile' element={<Profile/>}/>  
+             <Route path='booking' element={<Bookings/>}/>                   
+        </Route>
+        </Route>
+         <Route path="*" element ={<ErrorPage/>} />
       </Routes>
     </AppContext>  
   )

@@ -1,7 +1,6 @@
-import  { useCallback, useEffect, useState} from "react";
+import  { useCallback, useContext, useEffect, useState} from "react";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Mousewheel } from "swiper/modules";
-
 import {
   AiFillStar,
   AiOutlineMinus,
@@ -13,12 +12,10 @@ import RatingReviewCard from "../RatingReviewCard";
 import ModalCard from "../ModalCard";
 import toast from "react-hot-toast";
 import Loader from "../Loader";
-// import ExploreSection from "../LandingPage/ExploreSection";
-// import FeaturedRooms from "../LandingPage/FeaturedRooms";
-import { rooms} from "../utils/data";
 import useWishlist from "../store/useWishlist";
-
 import { useParams,useNavigate } from "react-router-dom";
+import { BookedContext, HostelsContext, LoaderContext } from "../store/AppContext";
+import useRequestResorce from "../store/useRequestresource";
 
 
 const RoomDetail = () => {
@@ -26,10 +23,12 @@ const RoomDetail = () => {
     const route=useNavigate()
   const [room, setRoom] = useState(null);
   const [slot, setSlot] = useState(1);
-  const [loading, setLoading] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const {wishlistData,addToWishlist}=useWishlist()
-
+  const {wishlistData,}=useWishlist()
+  const {setIsLoading} = useContext(LoaderContext)
+  const {hostelData}=useContext(HostelsContext)
+  const {booked,setBooked}=useContext(BookedContext)
+const {createBooking}=useRequestResorce()
   const detailTitles= [
     "details",
     "facilities",
@@ -39,14 +38,14 @@ const RoomDetail = () => {
 
 
   const handleGetroom =useCallback(async () => {
-    setLoading(true);
+    setIsLoading(true);
     try {
-      const response = rooms.find((room)=>room.id === Number(roomId) );
+      const response = hostelData.find((room)=>room._id === roomId );
       setRoom(response);
     } catch (error) {
       toast.error("Error loading room");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   },[])
 
@@ -54,29 +53,35 @@ const RoomDetail = () => {
     setIsActive((prev) => !prev);
   };
 
+const handleBooking=async()=>{
+  setIsLoading(true)
+  await createBooking(roomId)
+  .then((res)=>{
+    setBooked([...booked,res.data])
+    toast.success('Room Booked Successfully')
+    })
+  .then(()=>setIsLoading(false))
+  
+
+}
   useEffect(() => {
     if (!room) {
       handleGetroom();
     }
   }, [handleGetroom, room]);
 
-  const mainImg =
-    room && room.images.length > 0 && room?.images[0]
-      ? room?.images[0]
-      :"rooms/room_e_1.jpg";
+  const mainImg = room?.images?.length > 0 ? room?.images[0] :"rooms/room_e_1.jpg";
 
   const stars = [];
   const rating =
-    room && room.stars.length > 0
-      ? 
-        room.stars.reduce((acc, s) => {
-          return acc + s.stars;
-    
-        }, 0) / room.stars.length
+    room?.stars?.length > 0
+      ? room?.stars?.reduce((acc, s) => ( acc + s)) 
       : 0;
 
+console.log(rating);
+
   for (let i = 0; i < 5; i++) {
-    if (rating && i + 1 < rating) {
+    if (rating && i + 1 <= rating) {
       stars.push(<AiFillStar key={i + 1} />);
     } else {
       stars.push(<AiOutlineStar key={i + 1} />);
@@ -85,9 +90,7 @@ const RoomDetail = () => {
 
   const alreadyInWishlist = wishlistData?.find((item) => item.id === room?.id);
 
-  return loading ? (
-    <Loader />
-  ) : (
+  return  (
     <div className="w-full gap-10 mb-[100px] flex flex-col justify-center items-center">
       <div className="w-full product-info my-10 flex lg:flex-row flex-col lg:gap-2 gap-4 lg:justify-center lg:items-start justify-start items-center">
         <div className="images-display h-[350px] overflow-y-hidden flex justify-start items-start">
@@ -103,7 +106,7 @@ const RoomDetail = () => {
               <SwiperSlide key={i}>
                 <img
                   className="sm:hidden md:flex"
-                  src={`/rooms/${image}`}
+                  src={`../../../server/src/uploads/${image}`}
                   alt={image}
                   height={120}
                   width={100}
@@ -114,7 +117,7 @@ const RoomDetail = () => {
 
           <img
             className="h-full object-cover "
-            src={`/rooms/${mainImg}`}
+            src={`../../../server/src/uploads/${mainImg}`}
             alt={mainImg}
             width={320}
             height={390}
@@ -125,7 +128,7 @@ const RoomDetail = () => {
           <h1 className="text-[16px]">{room?.name}</h1>
           <span className=" w-full flex justify-start items-center gap-5">
             <p className="font-bold">
-              {room && room.price ? room.price.toString() : "0.00"}
+              {room && room?.price ? room.price.toString() : "0.00"}
             </p>
             <p className=" text-btn-bg ">occupancy: {room?.occupancy}</p>
           </span>
@@ -139,9 +142,9 @@ const RoomDetail = () => {
             >
               {room &&
              
-              room.stars
+              room?.stars
                 ?
-                  room.stars.length
+                  room?.stars.length
                 : 0}{" "}
               reviews
             </p>
@@ -169,18 +172,14 @@ const RoomDetail = () => {
             </button>
 
             <button
-              onClick={() =>route('/hostels')}
+              onClick={() =>route(-1)}
               className="uppercase flex-1 border-l-2 py-3 transition-all duration-75 ease-in-out bg-red-500 text-[14px] text-background-color hover:bg-red-600 "
             >
               CANCEL
             </button>
             <button
               disabled={alreadyInWishlist ? true : false}
-              onClick={() => {
-                if (room) {
-                  addToWishlist({ ...room, slot: 1 });
-                }
-              }}
+              onClick={()=>handleBooking(room)}
               className="uppercase flex-1 border-l-2 py-3 transition-all duration-75 ease-in-out bg-text-color text-[14px] text-background-color hover:bg-background-color hover:text-text-color"
             >
               {alreadyInWishlist ? "In wishlist" : "Book now"}

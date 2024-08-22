@@ -1,9 +1,26 @@
 import { PropTypes } from 'prop-types'
 import NavBar from './Navbar/NavBar'
 // import SideBar from './Sidebar/SideBar'
-import { useEffect} from 'react'
+import { useContext, useEffect} from 'react'
+import { AuthContext } from './store/AppContext'
+import SideNav from './Sidebar/SideNav'
+import { FaBookBookmark,FaBookOpen  } from "react-icons/fa6";
+import { FaHome } from "react-icons/fa";
+import { IoMdSettings } from "react-icons/io";
 function PageLayout({children,title='Home'}) {
+      const {isLogged}=useContext(AuthContext)
 
+      const navItems=[
+    { name:'Dashboard', path:'' },
+    { name:'Booking', path:'/booking' },
+    { name:'Profile', path:'/profile' },
+    { name:'Settings', path:'/settings' },
+  ]
+const icons=[
+<FaHome key={0} className="font-bold text-[20px] " />,
+<FaBookBookmark key={1} className="font-bold text-[20px]" />
+,<FaBookOpen key={2} className="font-bold text-[20px]"/>
+, <IoMdSettings key={3} className="font-bold text-[20px]" />]
 
     useEffect(()=>{
         document.title= `MJ Hostels || ${title}`;
@@ -13,20 +30,26 @@ function PageLayout({children,title='Home'}) {
   
   return (
       <>
-      <div className=' w-full h-full flex flex-col items-center justify-start px-[18px] ' >
+      <div className=' relative w-full h-[900px] flex flex-col items-center overflow-y-hidden justify-start ' >
          <header
               className="w-full relative h-[10vh] flex flex-col justify-start"
               style={{ border: "1px soloid red" }}
             >
-              <NavBar />
+              <NavBar dashboard={isLogged} />
             </header>
-        {/* <div className=' w-full max-w-[1512px] flex justify-start items-start gap-5 bg-black mt  '>
-            <SideBar/>
-            {children}
-        </div> */}
-        <div className=' w-full max-w-[1512px] flex flex-col justify-start items-start gap-5'>
-            {children}
+
+       {isLogged? 
+       <div className=" max-w-[1512px] flex w-full justify-start items-start relative overflow-hidden h-full">
+       <SideNav navItems={navItems} linkPreFix='/dashboard' icons={icons} />
+       
+        <div className="flex-1 h-screen overflow-y-auto overflow-x-hidden p-2">
+          {children}
         </div>
+        </div>
+        :
+        <div className='  max-w-[1512px] w-full h-screen overflow-y-auto'>
+            {children}
+        </div>}
       </div>
       </>
   )
