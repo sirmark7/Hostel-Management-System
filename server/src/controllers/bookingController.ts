@@ -2,9 +2,26 @@ import { Request, Response } from 'express';
 import Booking from '../models/Booking';
 import Room from '../models/Room';
 
+interface roomTypes{
+  name: string;
+  price: number;
+  oldPrice: number;
+  hostel: string;
+  location: string;
+  slot: number;
+  occupancy: number;
+  stars: number[];
+  category: string;
+  description: string;
+  facilities: string[];
+  images: string[];
+}
+
+
+
 // Create a Booking
 export const createBooking = async (req: Request|any, res: Response) => {
-  const { roomId } = req.body;
+  const { roomId,slot} = req.body;
   const userId = req.user.userId;
 
   try {
@@ -24,12 +41,20 @@ export const createBooking = async (req: Request|any, res: Response) => {
       room: roomId,
       status: 'booked',
     });
-
+  const updates={
+    slot:(room.occupancy-slot)
+  }
     await newBooking.save();
+    const updatedRoom = await Room.findByIdAndUpdate(room._id, updates, { new: true });
+      if (!updatedRoom) return res.status(404).json({statusCode:404, message: 'Room not found' });
+    res.status(200).json({statusCode:200,data:updatedRoom});
+    
 
     // Update room availability
+    if(updatedRoom.slot <= 0){
     room.available = false;
     await room.save();
+    }
 
     res.status(201).json({statusCode:201,data:newBooking});
   } catch (error:any) {
