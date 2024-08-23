@@ -26,13 +26,6 @@ const {filteredData}=useOutletContext()
           price={product.price.toString()}
           id={product._id}
           detailLink='/hostels'
-          rating={
-            product.stars.length > 0
-              ? product.stars.reduce((acc, s) => {
-                  return acc + s.stars;
-                }, 0) / product.stars.length
-              : 0
-          }
           cardStyles="w-full max-w-[250px] "
           imgStyles="h-[200px]"
           quantity={product.quantity}

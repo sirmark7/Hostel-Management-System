@@ -23,7 +23,7 @@ const ModalCard= (
   )
 }
 ModalCard.propTypes={
-  isActive:PropTypes.boolean,
+isActive:PropTypes.boolean,
 handleIsActive:PropTypes.func,
 children:PropTypes.node,
 heading:PropTypes.string

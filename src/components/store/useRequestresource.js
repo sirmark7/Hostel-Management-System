@@ -11,8 +11,7 @@ const useRequestResorce=()=>{
     const {booked,setBooked}=useContext(BookedContext)
     const {userData,setUserData}=useContext(UserContext)
 
-
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
 
 
@@ -63,24 +62,6 @@ console.log('sentdata',newRoomData);
 
 
 
-// get Bookind on test
-  const getAllBookings = useCallback(async () => {
-    try {
-      const response = await  fetchQuery(`bookings`, token)
-
-      if (response.statusCode !== 200) {
-        throw new Error('Failed to fetch Bookings');
-      }
-
-      setDealInfo(dealTransaction.data);
-      setCardTransactionInfo(cardTransaction.data);
-      
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
-
 // get user data
   const getUserData = useCallback(async () => {
  ;
@@ -99,7 +80,6 @@ console.log('sentdata',newRoomData);
     
     ;
   }, []);
-
 
 
 const updateRoom=useCallback(async(data)=>{
@@ -130,17 +110,33 @@ const updateRoom=useCallback(async(data)=>{
     } 
 },[])
 
-// create booking
-  const createBooking = useCallback(async (room) => {
-    const bookingData={
-      user:userId,
-      room:room._id
+// get Bookind on test
+  const getBookings = useCallback(async () => {
+    try {
+      const response = await  fetchQuery(`bookings`, token)
+
+       if (response.statusCode !== 200) {
+        toast.error(response?.error)
+        throw new Error(response);
+      }
+
+      setBooked(response.data)
+      return response
+    } catch (error) {
+      console.error(error);
     }
+  }, []);
+
+// create booking - working
+  const createBooking = useCallback(async (roomId,slot) => {
+    const bookingData={ roomId,slot}
+    console.log(bookingData);
+    
     try {
       const response = await  fetchQuery(`bookings`, token, 'POST',bookingData )
 
      if (response.statusCode !== 201) {
-        toast.error(response?response.message:response?.error)
+        toast.error(response.error)
         throw new Error(response);
       }
         setBooked([...booked,response.data])
@@ -149,12 +145,27 @@ const updateRoom=useCallback(async(data)=>{
       console.error(error);
     }
   }, []);
+ const cancleBooking = useCallback(async (roomId) => {
+    
+    try {
+      const response = await  fetchQuery(`bookings/${roomId}`, token, 'DELETE')
 
+     if (response.statusCode !== 200) {
+        toast.error(response.error)
+        throw new Error(response);
+      }
+      const result=booked.filter((room)=>room.room._id !==response?.data.room._id)
+        setBooked(result)
+        return response
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 // get Rooms - working
   const getAllRooms = useCallback(async () => {
     const response = await fetchQuery(`rooms`, token);
    if (response.statusCode !== 200) {
-        toast.error(response?response.message:response?.error)
+        toast.error(response.error)
         throw new Error(response);
       }
     return response
@@ -176,7 +187,7 @@ const updateRoom=useCallback(async(data)=>{
       const response =await fetchQueryAuth('users/register','POST',singUpData)
    
       if (response.statusCode !== 201) {
-        toast.error(response?response.message:response?.error)
+        toast.error(response.error)
         throw new Error(response);
       }
       toast.success('Signup up Successful')
@@ -201,7 +212,7 @@ const updateRoom=useCallback(async(data)=>{
       const response =await fetchQueryAuth('users/login','POST',loginData)
    
        if (response.statusCode !== 200) {
-        toast.error(response?response.message:response?.error)
+        toast.error(response.error)
         throw new Error(response);
       }
       toast.success('Login up Successful')
@@ -219,12 +230,13 @@ const updateRoom=useCallback(async(data)=>{
 return {
     createBooking,
     createRoom,
-    getAllBookings,
+    getBookings,
     getAllRooms,
     getUserData,
     signUp,
     login,
-    updateRoom
+    updateRoom,
+    cancleBooking
 
 }
 }

@@ -15,6 +15,7 @@ import {
 } from "react-icons/ai";
 
 
+
 const RoomCard = ({
   cardStyles,
   imgStyles,
@@ -23,9 +24,9 @@ const RoomCard = ({
   name,
   category,
   images,
-  rating,
   price,
   product,
+  fullProduct=null
 }) => {
   const [currentImg, setCurrentImg] = useState(0);
 const navigate=useNavigate()
@@ -33,9 +34,14 @@ const navigate=useNavigate()
   const { wishlistData, addToWishlist, removeFromWishlist } = useWishlist(product);
 
   // Product stars
-  const stars = [];
+
+ const stars = [];
+  const ratings =
+    product?.stars?.length > 0
+      ? product?.stars?.reduce((acc, s) => ( acc + s)) 
+      : 0;
   for (let i = 0; i < 5; i++) {
-    if (rating && i + 1 < rating) {
+    if (ratings && i + 1 <= ratings) {
       stars.push(<AiFillStar key={i + 1} />);
     } else {
       stars.push(<AiOutlineStar key={i + 1} />);
@@ -43,6 +49,7 @@ const navigate=useNavigate()
   }
 
   const alreadyInCart = wishlistData?.find((item) => item.id === product.id);
+
 
   return (
     <div className={` ${cardStyles} flex flex-col justify-center`}>
@@ -66,7 +73,7 @@ const navigate=useNavigate()
         )}
 
         <div
-          className={`product-imgs w-full bg-cover bg-center transition-all duration-150 ${imgStyles} `}
+          className={`product-imgs w-full bg-cover bg-center transition-all ${imgStyles} `}
           style={{
             backgroundImage: `url(../../../server/src/uploads/${
               images && images.length > 0
@@ -94,6 +101,14 @@ const navigate=useNavigate()
       </div>
 
       <div className=" w-full footer-section flex justify-between items-center mt-8  ">
+        {fullProduct&&fullProduct?.status==="booked"? 
+        <button
+          onClick={()=>navigate(`${detailLink&&detailLink}/${id}`)}
+          className="btn text-[14px] cursor-pointer ease-in-out bg-red-500 text-background-color hover:bg-red-600"
+        >
+          CANCLE BOOKING
+        </button>
+        :
         <button
           disabled={alreadyInCart ? true : false}
           onClick={()=>navigate(`${detailLink&&detailLink}/${id}`)}
@@ -101,6 +116,7 @@ const navigate=useNavigate()
         >
           {alreadyInCart ? "IN WISHLIST" : "BOOK NOW"}
         </button>
+        }
         <span className="font-bold  ">
           {price}
         </span>
@@ -122,6 +138,7 @@ RoomCard.propTypes={
   price:PropTypes.string,
   occupancy:PropTypes.number,
   product:PropTypes.object,
+  fullProduct:PropTypes.object,
   detailLink:PropTypes.string,
   handleBooking:PropTypes.func
 }

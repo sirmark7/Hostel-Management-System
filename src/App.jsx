@@ -20,7 +20,7 @@ import Dashboard from './components/Dashboard/userDashboard/Dashbaord'
 import { ErrorPage } from './pages/ErrorPage'
 import WishlistItems from './components/WishlistItems'
 import Profile from './components/Dashboard/Profile'
-import Bookings from './components/Dashboard/Bookings'
+import Bookings from './components/Dashboard/userDashboard/Bookings'
 // import PageLayout from './components/PageLayout'
 // import DashboardLayout from './components/Dashboard/DashboardLayout'
 

@@ -16,7 +16,7 @@ const RoomInfoCard = (
                 <button className="uppercase mt-[3rem] btn btn-cart-alt text-[14px] " onClick={<Navigate to="/hostels" />}>{btnText}</button>
                 </div>
             </div>
-            <div className={` bg-cover bg-center ${pictureStyles}`}  style={{backgroundImage:`URL(../../../server/src/uploads/${image})`}} >
+            <div className={` bg-cover bg-center ${pictureStyles}`}  style={{backgroundImage:`URL(/${image})`}} >
                 
             </div>
         

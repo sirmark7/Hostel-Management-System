@@ -30,6 +30,7 @@ const RoomSchema: Schema = new Schema({
   description: { type: String, required: true },
   facilities: { type: [String], default: [] },  // Array of facilities
   images: { type: [String], default: [] },  // Array of image filenames or URLs
+  available:{type:Boolean, default:true ,required:true}
 });
 
 // Create the Room model

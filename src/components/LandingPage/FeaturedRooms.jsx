@@ -59,6 +59,8 @@ const FeaturedRooms = () => {
               cardStyles="min-w-[300px] max-w[302px]"
               imgStyles="h-[300px]"
               occupancy={room.occupancy}
+                detailLink='/hostels'
+              
             />
           </SwiperSlide>
         ))}

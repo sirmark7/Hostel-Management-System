@@ -23,6 +23,8 @@ interface roomTypes{
 export const createBooking = async (req: Request|any, res: Response) => {
   const { roomId,slot} = req.body;
   const userId = req.user.userId;
+  console.log(roomId,slot,userId);
+  
 
   try {
     const room: any = await Room.findById(roomId);
@@ -47,7 +49,7 @@ export const createBooking = async (req: Request|any, res: Response) => {
     await newBooking.save();
     const updatedRoom = await Room.findByIdAndUpdate(room._id, updates, { new: true });
       if (!updatedRoom) return res.status(404).json({statusCode:404, message: 'Room not found' });
-    res.status(200).json({statusCode:200,data:updatedRoom});
+    // res.status(200).json({statusCode:200,data:updatedRoom});
     
 
     // Update room availability

@@ -6,7 +6,7 @@ import { RiCustomerService2Fill, RiContactsBookFill } from "react-icons/ri";
 import { MdAssignmentReturn, MdPrivacyTip } from "react-icons/md";
 import { FaQuestionCircle } from "react-icons/fa";
 import { GoLaw } from "react-icons/go";
-import SideNavHome from "../Sidebar/SideNavHome";
+import SideNavHome from "../sidebar/SideNavHome";
 export default function CustomerServiceLayout({children}) {
   const icons=[
   <RiCustomerService2Fill key={0} className="font-bold text-[20px]"/>,

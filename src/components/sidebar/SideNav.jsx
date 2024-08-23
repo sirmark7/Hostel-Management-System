@@ -30,16 +30,18 @@ const SideNav = ({ navItems, linkPreFix, icons }) => {
             const currentPath =
               item.path.trim().length > 0
                 ? linkPreFix + item.path
-                : '';
+                : linkPreFix;
 
             const isCurrentPath = path === currentPath;
+          
+            
 
             return (
               <NavLink
                 key={index}
                 className={`${
                   isCurrentPath && "bg-[#CCCCCC]"
-                } hover:bg-[#CCCCCC] side-nav-item flex justify-start items-center gap-1 w-full px-2 text-[14px] captalize`}
+                } hover:bg-[#CCCCCC] flex justify-start items-center gap-1 w-full px-2 text-[14px] captalize`}
                 to={`${linkPreFix}${item.path}`}
               >
                 {icons[index]}

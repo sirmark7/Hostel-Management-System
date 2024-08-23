@@ -3,24 +3,21 @@ import NavBar from './Navbar/NavBar'
 // import SideBar from './Sidebar/SideBar'
 import { useContext, useEffect} from 'react'
 import { AuthContext } from './store/AppContext'
-import SideNav from './Sidebar/SideNav'
+import SideNav from './sidebar/SideNav'
 import { FaBookBookmark,FaBookOpen  } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
-import { IoMdSettings } from "react-icons/io";
 function PageLayout({children,title='Home'}) {
       const {isLogged}=useContext(AuthContext)
 
       const navItems=[
     { name:'Dashboard', path:'' },
     { name:'Booking', path:'/booking' },
-    { name:'Profile', path:'/profile' },
-    { name:'Settings', path:'/settings' },
+    { name:'Profile', path:'/profile' }
   ]
 const icons=[
 <FaHome key={0} className="font-bold text-[20px] " />,
 <FaBookBookmark key={1} className="font-bold text-[20px]" />
-,<FaBookOpen key={2} className="font-bold text-[20px]"/>
-, <IoMdSettings key={3} className="font-bold text-[20px]" />]
+,<FaBookOpen key={2} className="font-bold text-[20px]"/>]
 
     useEffect(()=>{
         document.title= `MJ Hostels || ${title}`;
@@ -42,12 +39,12 @@ const icons=[
        <div className=" max-w-[1512px] flex w-full justify-start items-start relative overflow-hidden h-full">
        <SideNav navItems={navItems} linkPreFix='/dashboard' icons={icons} />
        
-        <div className="flex-1 h-screen overflow-y-auto overflow-x-hidden p-2">
+        <div className="flex-1 w-full h-screen overflow-y-auto overflow-x-hidden p-2 ">
           {children}
         </div>
         </div>
         :
-        <div className='  max-w-[1512px] w-full h-screen overflow-y-auto'>
+        <div className='  max-w-[1512px] w-full flex flex-col gap-14 justify-start items-center  h-screen overflow-y-auto scrollbar-hide'>
             {children}
         </div>}
       </div>
