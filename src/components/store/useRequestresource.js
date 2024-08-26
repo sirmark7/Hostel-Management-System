@@ -1,18 +1,17 @@
 import { useCallback, useContext } from "react";
 import { fetchQuery, fetchQueryAuth, } from "./fetchFuction";
-import {HostelsContext,UserContext,BookedContext,WishlistContext,FilterContext} from "./AppContext";
+import {HostelsContext,UserContext,BookedContext} from "./AppContext";
 import toast from "react-hot-toast";
 
 
 const useRequestResorce=()=>{
     const {hostelData,setHostelData}=useContext(HostelsContext)
-    const {filteredData, setFilteredData} = useContext(FilterContext);
-    const {wishlistData,setWishlistData}=useContext(WishlistContext)
     const {booked,setBooked}=useContext(BookedContext)
-    const {userData,setUserData}=useContext(UserContext)
+    const {setUserData}=useContext(UserContext)
+
 
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
+    // const userId = localStorage.getItem('userId');
 
 
 //create new deal
@@ -120,7 +119,23 @@ const updateRoom=useCallback(async(data)=>{
         throw new Error(response);
       }
 
-      setBooked(response.data)
+      // setBooked(response.data)
+      return response
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+  
+  const getAllBookings = useCallback(async () => {
+    try {
+      const response = await  fetchQuery(`bookings/admin`, token)
+
+       if (response.statusCode !== 200) {
+        toast.error(response?.error)
+        throw new Error(response);
+      }
+
+      // setAllBooked(response.data)
       return response
     } catch (error) {
       console.error(error);
@@ -145,6 +160,26 @@ const updateRoom=useCallback(async(data)=>{
       console.error(error);
     }
   }, []);
+
+  // get Users - working
+  const getAllUsers = useCallback(async () => {
+    const response = await fetchQuery(`users/all/profile`, token);
+   if (response.statusCode !== 200) {
+        toast.error(response.error)
+        throw new Error(response);
+      }
+      // setUserList(response.data)
+    return response
+  
+  }, []);
+
+
+
+
+
+
+
+
  const cancleBooking = useCallback(async (roomId) => {
     
     try {
@@ -168,6 +203,7 @@ const updateRoom=useCallback(async(data)=>{
         toast.error(response.error)
         throw new Error(response);
       }
+        // toast.success('Signup up Successful')
     return response
   
   }, []);
@@ -218,6 +254,7 @@ const updateRoom=useCallback(async(data)=>{
       toast.success('Login up Successful')
       localStorage.setItem('token',response.token)
       localStorage.setItem('userId',response.user._id)
+      localStorage.setItem('role',response.user.role)
       setUserData(response.user)
       return response;
     } catch (error) {
@@ -236,7 +273,9 @@ return {
     signUp,
     login,
     updateRoom,
-    cancleBooking
+    cancleBooking,
+    getAllUsers,
+    getAllBookings
 
 }
 }

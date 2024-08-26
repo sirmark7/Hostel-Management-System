@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import TableAction from "./TableActions";
 import toast from "react-hot-toast";
-import Loader from "../Loader";
+import { LoaderContext } from "../store/AppContext";
+import { PropTypes } from "prop-types";
 
 
 
 const Table= ({ columns, rows, manageRoutes }) => {
-  const [loading, setLoading] = useState(false);
+  const {setIsLoading} = useContext(LoaderContext);
   const router = useNavigate();
 
   const managefxn = async (label, href, id) => {
@@ -16,7 +17,7 @@ const Table= ({ columns, rows, manageRoutes }) => {
       return;
     }
     if (label.toLowerCase() === "delete") {
-      setLoading(true);
+      setIsLoading(true);
       try {
       
         toast.success("Deleted!");
@@ -25,18 +26,17 @@ const Table= ({ columns, rows, manageRoutes }) => {
         console.log("Delete failed:", error);
         toast.error("Delete failed!");
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     }
   };
 
   return (
     <>
-      {loading && <Loader />}
-      <table className="relative">
+      <table className="relative w-full">
         <thead>
-          <tr style={{ borderBottom: "1px solid #333" }}>
-            {columns.map((column) => (
+          <tr style={{ borderBottom: "1px solid #333" }} className="w-full">
+            {columns?.map((column) => (
               <th key={column} className="text-md uppercase">
                 {column}
               </th>
@@ -45,9 +45,9 @@ const Table= ({ columns, rows, manageRoutes }) => {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, x) => (
+          {rows?.map((row, x) => (
             <tr key={x} style={{ borderBottom: "1px solid #ccc" }}>
-              {columns.map((field, i) => {
+              {columns?.map((field, i) => {
                 if (field === "id") {
                   return (
                     <td key={`${field}${i}`} className="text-center py-1">
@@ -66,7 +66,7 @@ const Table= ({ columns, rows, manageRoutes }) => {
                   <TableAction
                     actions={manageRoutes}
                     actionFxn={managefxn}
-                    id={row.id}
+                    id={row._id}
                   />
                 </span>
               </td>
@@ -77,5 +77,9 @@ const Table= ({ columns, rows, manageRoutes }) => {
     </>
   );
 };
-
+  Table.propTypes={
+ columns:PropTypes.array, 
+ rows:PropTypes.array, 
+ manageRoutes:PropTypes.array 
+}
 export default Table;

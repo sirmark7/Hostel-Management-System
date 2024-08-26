@@ -14,6 +14,7 @@ const Login = ({toggleForm}) => {
     const [password,setPassword]=useState('')
     const [forgotPassword,setForgotPassword]=useState(false)
     // const {userData,setUserData}=useContext(UserContext)
+   
     const {login}=useRequestResorce()
     const route=useNavigate()
     const handleLogin=async(e)=>{
@@ -21,13 +22,19 @@ const Login = ({toggleForm}) => {
       setIsLoading(true)
     await login(email,password)
     .then((res)=>{
+       const role =localStorage.getItem("role")
       setIsLoading(false)
       if(res.statusCode!==200){
         toast.error(res)
         return;
       }
+      if(role==='admin'){
+         setIsLogged(true)
+      route('/admin')
+      }else{
       setIsLogged(true)
       route('/dashboard')
+      }
       })
       }
 useEffect(()=>{

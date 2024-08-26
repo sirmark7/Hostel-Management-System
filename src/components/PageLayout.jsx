@@ -27,7 +27,7 @@ const icons=[
   
   return (
       <>
-      <div className=' relative w-full h-[900px] flex flex-col items-center overflow-y-hidden justify-start ' >
+      <div className='  relative w-full h-[900px] flex flex-col items-center overflow-y-hidden justify-start ' >
          <header
               className="w-full relative h-[10vh] flex flex-col justify-start"
               style={{ border: "1px soloid red" }}

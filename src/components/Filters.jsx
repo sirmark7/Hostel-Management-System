@@ -35,7 +35,7 @@ const Filters = () => {
               name: "id100-500",
               value: "100:500",
             },
-            { label: "Above ₵500", name:"id500", value: "500:0" },
+            { label: "Above ₵500", name:"id500", value: "500:800000000" },
           ]}
         />
       </div>

@@ -2,8 +2,8 @@ import SummaryCard from "./SummaryCard";
 import { PropTypes } from "prop-types";
 const SummaryCards = ({ cards }) => {
   return (
-    <div className="flex justify-between gap-3 w-full flex-wrap">
-      {cards.map((card) => (
+    <div className="flex justify-between gap-3 w-full flex-wrap ">
+      {cards?.map((card) => (
         <SummaryCard
           key={card.title}
           title={card.title}

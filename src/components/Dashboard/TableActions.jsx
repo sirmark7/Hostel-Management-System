@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { BiDotsVerticalRounded } from "react-icons/bi";
+import { PropTypes } from "prop-types";
 
 
 const TableAction= ({
@@ -48,12 +49,12 @@ const TableAction= ({
             exit={{ opacity: 0, x: -50 }}
             className="bg-slate-100 rounded-lg absolute bottom-[100%] right-0 z-50 overflow-hidden"
           >
-            {actions.map((action) => (
+            {actions?.map((action) => (
               <li key={action.label}>
                 {action.type === "link" && action.href ? (
                   <Link
                     className="flex items-center gap-2 hover:bg-slate-200 w-full p-2 hover:text-[#8F3409] text-left text-sm"
-                    href={action.href}
+                    to={action.href}
                   >
                     <span>{action.icon}</span> <span>{action.name}</span>
                   </Link>
@@ -75,5 +76,11 @@ const TableAction= ({
     </>
   );
 };
+
+ TableAction.propTypes={
+   actions:PropTypes.array,
+  actionFxn:PropTypes.func,
+  id:PropTypes.string
+ }
 
 export default TableAction;

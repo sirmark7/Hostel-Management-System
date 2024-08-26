@@ -11,6 +11,7 @@ const path=useLocation()
 
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
+    const role =localStorage.getItem("role")
 
   useEffect(() => {
     
@@ -30,7 +31,12 @@ const path=useLocation()
     return <Navigate to="/auth" />;
   }
 
-  return <Outlet />;
+  
+
+  if(role ==='admin'){
+   return <Navigate to='/admin'/> 
+  }
+    return <Outlet />;
 };
 
 export default ProtectedRoute;

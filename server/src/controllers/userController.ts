@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
-import { data } from 'autoprefixer';
+
 
 
 // Get User Profile
@@ -14,6 +14,18 @@ export const getUserProfile = async (req: Request|any, res: Response) => {
     }
 
     res.status(200).json({ statusCode:200,data:user});
+  } catch (error:any) {
+    res.status(500).json({ statusCode:500, error: error.message });
+  }
+};
+export const getAllUseProfiles = async (req: Request|any, res: Response) => {
+  try {
+    const users = await User.find().select('-password');
+    if (!users) {
+      return res.status(404).json({ message: 'No Users not found' });
+    }
+
+    res.status(200).json({ statusCode:200,data:users});
   } catch (error:any) {
     res.status(500).json({ statusCode:500, error: error.message });
   }

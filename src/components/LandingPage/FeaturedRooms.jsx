@@ -11,6 +11,8 @@ import { HostelsContext } from "../store/AppContext";
 
 const FeaturedRooms = () => {
   const {hostelData}=useContext(HostelsContext)
+  console.log(hostelData);
+  
   // const [roomList, setRoomList] = useState([]);
 
   // const fetchFeaturedItems = async () => {

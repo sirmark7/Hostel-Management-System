@@ -9,6 +9,8 @@ export const UserContext =createContext({})
 export const FilterContext =createContext({})
 export const AuthContext =createContext()
 export const LoaderContext =createContext()
+export const UserListContext=createContext([])
+export const AllBookingsContext =createContext([])
 
 const AppContext = ({children}) => {
   
@@ -17,21 +19,30 @@ const AppContext = ({children}) => {
     const [filteredData, setFilteredData] = useState();
     const [wishlistData,setWishlistData]=useState([])
     const [booked,setBooked]=useState([])
-    const [userData,setUserData]=useState([])
+    const [allBooked,setAllBooked]=useState([])
+    const [userData,setUserData]=useState({})
+    const [userList,setUserList]=useState([])
     const [isLoading,setIsLoading]=useState()
-    const {getAllRooms}=useRequestResorce()
+    const {getAllRooms,getAllUsers,getBookings,getAllBookings}=useRequestResorce()
 
 const handleFetchData=useCallback(async()=>{
-        await getAllRooms()
+    setIsLoading(true)
+        await Promise.all([getAllRooms(),getAllUsers(),getBookings(),getAllBookings()])
         .then((res)=> {
-            setHostelData(res.data)
-            setFilteredData(res.data)
+            console.log(res)
+            setHostelData(res[0].data)
+            setFilteredData(res[0].data)
+            setUserList(res[1].data)
+            setBooked(res[2].data)
+            setAllBooked(res[3].data)
+            
         })
+        .finally(()=>setIsLoading(false))
        
-},[getAllRooms])
+},[getAllBookings, getAllRooms, getAllUsers, getBookings])
 
     useEffect(()=>{
-    handleFetchData()        
+    handleFetchData()    
     },[])
 
 
@@ -40,16 +51,20 @@ const handleFetchData=useCallback(async()=>{
     <AuthContext.Provider value={{isLogged,setIsLogged}}>
         <LoaderContext.Provider value={{isLoading,setIsLoading}}>
             <HostelsContext.Provider value={{hostelData,setHostelData}}>
-                <FilterContext.Provider value={{filteredData,setFilteredData}}>
-                    <UserContext.Provider value={{userData,setUserData}}>
-                        <BookedContext.Provider value={{booked,setBooked}}>
-                        <WishlistContext.Provider value={{wishlistData,setWishlistData}}>
-                            {children}
-                            {isLoading && <Loader/>}
-                        </WishlistContext.Provider>
-                        </BookedContext.Provider>
-                    </UserContext.Provider>
-                </FilterContext.Provider>
+                <BookedContext.Provider value={{booked,setBooked}}>
+                    <AllBookingsContext.Provider value={{allBooked,setAllBooked}}>
+                        <UserListContext.Provider value={{userList,setUserList}}>
+                            <FilterContext.Provider value={{filteredData,setFilteredData}}>
+                                <UserContext.Provider value={{userData,setUserData}}>
+                                    <WishlistContext.Provider value={{wishlistData,setWishlistData}}>
+                                        {children}
+                                        {isLoading && <Loader/>}
+                                    </WishlistContext.Provider>
+                                </UserContext.Provider>
+                            </FilterContext.Provider>
+                        </UserListContext.Provider>
+                    </AllBookingsContext.Provider>
+                </BookedContext.Provider>
             </HostelsContext.Provider>
         </LoaderContext.Provider>
     </AuthContext.Provider>

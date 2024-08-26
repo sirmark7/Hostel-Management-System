@@ -9,7 +9,7 @@ const SummaryCard = ({
   return (
     <Link
       to={path}
-      className="flex flex-col flex-grow gap-4 shadow-lg min-h-[150px] p-4 transition-all hover:bg-slate-300 bg-slate-100 rounded-lg"
+      className="flex flex-col flex-grow gap-4 shadow-lg min-h-[150px] p-4 transition-all min-w-[185px] hover:bg-slate-300 bg-slate-100 rounded-lg"
     >
       <header className="flex items-center justify-between text-2xl font-semibold">
         <h3 className="capitalize">{title.toLowerCase()}</h3>
@@ -23,8 +23,8 @@ const SummaryCard = ({
 };
 SummaryCard.propTypes={
    title:PropTypes.string,
-  icon:PropTypes.string,
-  value:PropTypes.string,
+  icon:PropTypes.object,
+  value:PropTypes.number,
   path:PropTypes.string,
 }
 export default SummaryCard;

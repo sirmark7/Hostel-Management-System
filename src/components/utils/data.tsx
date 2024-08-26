@@ -1,6 +1,6 @@
 import React from "react";
-import { BsFillGridFill } from "react-icons/bs";
-import { MdInventory, MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { MdHouse,MdPeople,MdBook} from "react-icons/md";
+
 
 export const rooms = [
 
@@ -615,24 +615,24 @@ export const faqs = [
   },
 ];
 
-export const cards = (categories, items) => [
+export const cards = (rooms:[], bookings:[],users:[]) => [
   {
-    title: "Items",
-    icon: <MdInventory />,
-    value: items.length,
-    path: "/admin/items",
+    title: "Rooms",
+    icon: <MdHouse />,
+    value: rooms?.length,
+    path: "/admin/rooms",
   },
   {
-    title: "Categories",
-    icon: <BsFillGridFill />,
-    value: categories.length,
-    path: "/admin/categories",
+    title: "Bookings",
+    icon: <MdBook />,
+    value: bookings?.length,
+    path: "/admin/bookings",
   },
   {
-    title: "Orders",
-    icon: <MdOutlineShoppingCartCheckout />,
-    value: 0,
-    path: "/admin/orders",
+    title: "Users",
+    icon: <MdPeople />,
+    value: users?.length,
+    path: "/admin/users",
   },
 ];
 

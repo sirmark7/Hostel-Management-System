@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 interface IBooking extends Document {
-  user: Schema.Types.ObjectId;
+  user: Schema.Types.ObjectId,
   room: Schema.Types.ObjectId;
   bookingDate: Date;
   status: 'booked' | 'cancelled';
