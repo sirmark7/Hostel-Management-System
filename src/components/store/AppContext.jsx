@@ -31,14 +31,13 @@ const handleFetchData=useCallback(async()=>{
      const role =localStorage.getItem('role')
     setIsLoading(true)
 if(userId&& role=='admin'){
-        await Promise.all([getAllRooms(),getAllUsers(),getBookings(),getAllBookings()])
+        await Promise.all([getAllRooms(),getAllUsers(),getAllBookings()])
         .then((res)=> {
             console.log(res)
             setHostelData(res[0].data)
             setFilteredData(res[0].data)
             setUserList(res[1].data)
-            setBooked(res[2].data)
-            setAllBooked(res[3].data)
+            setAllBooked(res[2].data)
             
         })
         .finally(()=>setIsLoading(false))

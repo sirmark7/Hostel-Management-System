@@ -1,6 +1,6 @@
 import { useCallback, useContext } from "react";
 import { fetchQuery, fetchQueryAuth, } from "./fetchFuction";
-import {HostelsContext,UserContext,BookedContext} from "./AppContext";
+import {HostelsContext,UserContext,BookedContext, AllBookingsContext} from "./AppContext";
 import toast from "react-hot-toast";
 
 
@@ -8,6 +8,7 @@ const useRequestResorce=()=>{
     const {hostelData,setHostelData}=useContext(HostelsContext)
     const {booked,setBooked}=useContext(BookedContext)
     const {setUserData}=useContext(UserContext)
+    // const {setAllBooked}=useContext(AllBookingsContext)
 
 
     const token = localStorage.getItem('token');
