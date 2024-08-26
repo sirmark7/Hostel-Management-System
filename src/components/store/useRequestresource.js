@@ -63,21 +63,19 @@ console.log('sentdata',newRoomData);
 
 // get user data
   const getUserData = useCallback(async () => {
- ;
     try {
-      const response = await fetchQuery(`users`, token);
+      const response = await fetchQuery(`users/profile`, token);
       if (response.statusCode !== 200) {
         throw new Error(response.message);
       }
       
-      localStorage.setItem('userId', response.data._id);
+      // localStorage.setItem('userId', response.data._id);
       setUserData(response.data);
+         console.log(response);
          
     } catch (error) {
       console.error(error);
     } 
-    
-    ;
   }, []);
 
 
@@ -153,7 +151,7 @@ const updateRoom=useCallback(async(data)=>{
         toast.error(response.error)
         throw new Error(response);
       }
-        setBooked([...booked,response.data])
+        // setBooked([...booked,response.data])
         return response
     } catch (error) {
       console.error(error);
@@ -182,14 +180,17 @@ const updateRoom=useCallback(async(data)=>{
  const cancleBooking = useCallback(async (roomId) => {
     
     try {
-      const response = await  fetchQuery(`bookings/${roomId}`, token, 'DELETE')
+      const response = await  fetchQuery(`bookings/${roomId}`, token,'DELETE')
 
      if (response.statusCode !== 200) {
         toast.error(response.error)
         throw new Error(response);
       }
-      const result=booked.filter((room)=>room.room._id !==response?.data.room._id)
-        setBooked(result)
+     console.log('cancle',response);
+      const result=booked.filter((room)=>room.room._id !==response?.data?.room._id)
+      console.log(result);
+      
+      setBooked(result)
         return response
     } catch (error) {
       console.error(error);
@@ -270,13 +271,13 @@ return {
     createRoom,
     getBookings,
     getAllRooms,
-    getUserData,
     signUp,
     login,
     updateRoom,
     cancleBooking,
     getAllUsers,
-    getAllBookings
+    getAllBookings,
+    getUserData
 
 }
 }

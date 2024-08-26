@@ -127,6 +127,7 @@ export const deleteBooking = async (req: Request|any, res: Response) => {
     const room:any = await Room.findById(booking.room);
     if (room) {
       room.available = true;
+      --room.slot 
       await room.save();
     }
 

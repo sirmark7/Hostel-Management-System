@@ -12,7 +12,7 @@ import RatingReviewCard from "../RatingReviewCard";
 import ModalCard from "../ModalCard";
 import toast from "react-hot-toast";
 import useWishlist from "../store/useWishlist";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams,useNavigate, useOutletContext } from "react-router-dom";
 import { AuthContext, BookedContext, HostelsContext, LoaderContext } from "../store/AppContext";
 import useRequestResorce from "../store/useRequestresource";
 
@@ -27,7 +27,8 @@ const RoomDetail = () => {
   const {wishlistData,}=useWishlist()
   const {setIsLoading} = useContext(LoaderContext)
   const {hostelData}=useContext(HostelsContext)
-  const {booked,setBooked}=useContext(BookedContext)
+  const {setBooked}=useContext(BookedContext)
+  const {booked}=useOutletContext()
   const {isLogged}=useContext(AuthContext)
   const userId =localStorage.getItem('userId')
 const {createBooking,cancleBooking}=useRequestResorce()
@@ -72,20 +73,26 @@ const handleBooking=async()=>{
   .then(()=>setIsLoading(false))
 
 }
+
+
+
 const handleCancleBooking=async()=>{
    if (!isLogged && !!userId) {
             toast.error("Please sign in to book a room.");
             return;
         }
   setIsLoading(true)
-  await cancleBooking(roomId)
-  .then(()=>{
-      setIsLoading(false)
-    // setBooked([...booked,res.data])
-    toast.success('Booking Cancled Successfully')
-    })
-  .then(()=>setIsLoading(false))
-
+  // await cancleBooking(roomId)
+  // .then((res)=>{
+  //    const result=booked.filter((room)=>room.room._id!==res?.data.room._id)
+  //   setBooked(result)
+  //   toast.success('Booking Cancled Successfully')
+  //   console.log('result',result);
+    
+  //   })
+  // .then(()=>setIsLoading(false))
+  route('/dashboard/booking')
+  window.location.reload()
 }
 const handleUpdateBooking=async()=>{
    if (!isLogged && !!userId) {

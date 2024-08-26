@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../store/AppContext";
+import { LoaderContext, UserContext } from "../store/AppContext";
+import useRequestResorce from "../store/useRequestresource";
+import toast from "react-hot-toast";
 
 
 // import useLocalStorage from "../../utils/localStorage";
@@ -8,7 +10,6 @@ const Profile = () => {
     
    const [profileImage, setProfileImage] = useState(null);
    const [profileView, setProfileView] = useState(null);
-   const {userData}=useContext(UserContext)
 
 
      const handleFileChange = (e) => {
@@ -31,9 +32,24 @@ const Profile = () => {
    
 
   }
-  useEffect(()=>{
+   const {getUserData}=useRequestResorce()
+  const {userData}=useContext(UserContext)
+  const {setIsLoading}=useContext(LoaderContext)
+  // const {booked}=useOutletContext()
+  const getUser=async()=>{
+      setIsLoading(true)
+      await getUserData()
+      .then((res)=>
+      {
+        if(res?.statusCode!== 200 ){
+          toast.error(res.error) }
+        setIsLoading(false) })
+        setIsLoading(false)
+      }
 
-  })
+  useEffect(()=>{
+    getUser()
+  },[])
 
   return (
     <div className="flex-1 flex flex-col justify-center items-center self-center">

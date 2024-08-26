@@ -18,6 +18,8 @@ export const getUserProfile = async (req: Request|any, res: Response) => {
     res.status(500).json({ statusCode:500, error: error.message });
   }
 };
+
+
 export const getAllUseProfiles = async (req: Request|any, res: Response) => {
   try {
     const users = await User.find().select('-password');
