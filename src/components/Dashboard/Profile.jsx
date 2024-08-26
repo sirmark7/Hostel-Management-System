@@ -43,8 +43,9 @@ const Profile = () => {
       {
         if(res?.statusCode!== 200 ){
           toast.error(res.error) }
-        setIsLoading(false) })
-        setIsLoading(false)
+        setIsLoading(false) 
+        })
+      .finally(()=>setIsLoading(false))
       }
 
   useEffect(()=>{
