@@ -118,8 +118,7 @@ const updateRoom=useCallback(async(data)=>{
         toast.error(response?.error)
         throw new Error(response);
       }
-
-      // setBooked(response.data)
+      setBooked(response.data)
       return response
     } catch (error) {
       console.error(error);
@@ -196,6 +195,8 @@ const updateRoom=useCallback(async(data)=>{
       console.error(error);
     }
   }, []);
+
+
 // get Rooms - working
   const getAllRooms = useCallback(async () => {
     const response = await fetchQuery(`rooms`, token);

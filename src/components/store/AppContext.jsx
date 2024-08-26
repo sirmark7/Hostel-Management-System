@@ -23,7 +23,7 @@ const AppContext = ({children}) => {
     const [userData,setUserData]=useState({})
     const [userList,setUserList]=useState([])
     const [isLoading,setIsLoading]=useState()
-    const {getAllRooms,getAllUsers,getBookings,getAllBookings}=useRequestResorce()
+    const {getAllRooms,getUserData,getAllUsers,getBookings,getAllBookings}=useRequestResorce()
    
 
 const handleFetchData=useCallback(async()=>{
@@ -43,17 +43,30 @@ if(userId&& role=='admin'){
         })
         .finally(()=>setIsLoading(false))
 
-}else{
-     await getAllRooms()
+}else if(userId){
+    await Promise.all([getAllRooms(),getUserData(),getBookings()])
+        .then((res)=> {
+            console.log(res)
+            setHostelData(res[0].data)
+            setFilteredData(res[0].data)
+            setUserData(res[1].data)
+            setBooked(res[2].data)
+        }).catch((error)=>console.log(error)
+        )
+        .finally(()=>setIsLoading(false))
+}
+else{
+    await getAllRooms()
         .then((res)=> {
             console.log(res)
             setHostelData(res.data)
             setFilteredData(res.data)
-        })
+        }).catch((error)=>console.log(error)
+        )
         .finally(()=>setIsLoading(false))
 }
        
-},[getAllBookings, getAllRooms, getAllUsers, getBookings])
+},[getAllBookings, getAllRooms, getAllUsers, getBookings, getUserData])
 
     useEffect(()=>{
     handleFetchData()    
