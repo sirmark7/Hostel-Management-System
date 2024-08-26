@@ -26,6 +26,7 @@ const Login = ({toggleForm}) => {
       setIsLoading(false)
       if(res.statusCode!==200){
         toast.error(res)
+        route('/auth')
         return;
       }
       if(role==='admin'){

@@ -24,9 +24,11 @@ const AppContext = ({children}) => {
     const [userList,setUserList]=useState([])
     const [isLoading,setIsLoading]=useState()
     const {getAllRooms,getAllUsers,getBookings,getAllBookings}=useRequestResorce()
+    const userId =localStorage.getItem('userId')
 
 const handleFetchData=useCallback(async()=>{
     setIsLoading(true)
+if(userId){
         await Promise.all([getAllRooms(),getAllUsers(),getBookings(),getAllBookings()])
         .then((res)=> {
             console.log(res)
@@ -38,8 +40,18 @@ const handleFetchData=useCallback(async()=>{
             
         })
         .finally(()=>setIsLoading(false))
+
+}else{
+     await getAllRooms()
+        .then((res)=> {
+            console.log(res)
+            setHostelData(res.data)
+            setFilteredData(res.data)
+        })
+        .finally(()=>setIsLoading(false))
+}
        
-},[getAllBookings, getAllRooms, getAllUsers, getBookings])
+},[getAllBookings, getAllRooms, getAllUsers, getBookings, userId])
 
     useEffect(()=>{
     handleFetchData()    

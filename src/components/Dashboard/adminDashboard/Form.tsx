@@ -1,22 +1,11 @@
-"use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import SelectField from "./SelectField";
 import { BiPlus } from "react-icons/bi";
-import { CldUploadWidget } from "next-cloudinary";
-import { useRouter } from "next/navigation";
+import { useNavigate } from "react-router-dom";
+import {PropTypes } from "prop-types";
 
-interface FormProps {
-  fields: any[];
-  formTitle: string;
-  type?: string;
-  submit: (data: any) => void;
-  loading: boolean;
-  method?: "GET" | "POST" | "PATCH" | "DELETE";
-}
-
-const Form: React.FC<FormProps> = ({
+const Form= ({
   fields,
   formTitle,
   type,
@@ -24,12 +13,10 @@ const Form: React.FC<FormProps> = ({
   loading,
   submit,
 }) => {
-  const [initialFields, setInitialFields] = useState<any[] | null>(null);
-  const [imgFields, setImgFields] = useState<{
-    [key: string]: string[];
-  } | null>(null);
+  const [initialFields, setInitialFields] = useState(null);
+  const [imgFields, setImgFields] = useState(null);
 
-  const router = useRouter();
+  const router = useNavigate();
 
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
