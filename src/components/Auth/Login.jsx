@@ -32,6 +32,7 @@ const Login = ({toggleForm}) => {
       if(role==='admin'){
          setIsLogged(true)
       route('/admin')
+      window.location.reload()
       }else{
       setIsLogged(true)
       route('/dashboard')

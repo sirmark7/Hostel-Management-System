@@ -18,7 +18,7 @@ const Filters = () => {
             label: category.name.toLowerCase(),
             name: category.name.toLowerCase(),
             // value: `${category}`,
-            value: category.name.toLocaleLowerCase(),
+            value: category.name.toLowerCase(),
           }))}
         />
 
