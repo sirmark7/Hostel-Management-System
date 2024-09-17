@@ -1,6 +1,6 @@
 import { useCallback, useContext } from "react";
 import { fetchQuery, fetchQueryAuth, } from "./fetchFuction";
-import {HostelsContext,UserContext,BookedContext, AllBookingsContext} from "./AppContext";
+import {HostelsContext,UserContext,BookedContext} from "./AppContext";
 import toast from "react-hot-toast";
 
 
@@ -172,12 +172,6 @@ const updateRoom=useCallback(async(data)=>{
   }, []);
 
 
-
-
-
-
-
-
  const cancleBooking = useCallback(async (roomId) => {
     
     try {
@@ -212,14 +206,14 @@ const updateRoom=useCallback(async(data)=>{
   }, []);
 
 // signup - working
-  const signUp=useCallback(async(fullName,email,phoneNumber,password)=>{
-    if(!fullName||!email||!phoneNumber||!password){
+  const signUp=useCallback(async(body)=>{
+    if(!body.fullName||!body.email||!body.phoneNumber||!body.password||!body.role){
       toast.error('All feilds are required')
       throw new Error('All feilds are required')
     }
-   const singUpData= {
-  fullName,email,phoneNumber,password
-}
+
+   const{ fullName,email,phoneNumber,password,role}=body
+   const singUpData= { fullName,email,phoneNumber,password,role}
 
     try {
    
@@ -236,6 +230,33 @@ const updateRoom=useCallback(async(data)=>{
     } 
     
   },[]);
+
+  // updateuser - working
+  const updateUser=useCallback(async(body,id)=>{
+    console.log(body);
+    
+    if(!id||!body){
+      toast.error('All feilds are required')
+      throw new Error('All feilds are required')
+    }
+
+    try {
+   
+      const response =await fetchQuery('users/profile/'+id,token,'PUT',body)
+   
+      if (response.statusCode !== 200) {
+        toast.error(response.error)
+        throw new Error(response);
+      }
+      toast.success(' update Successful')
+      return response
+    } catch (error) {
+      console.error(error);
+    } 
+    
+  },[]);
+
+ 
 
 // login - worksing
   const login=useCallback(async(email,password)=>{
@@ -267,15 +288,84 @@ const updateRoom=useCallback(async(data)=>{
   },[]);
 
 
+ const deleteUser=useCallback(async(user)=>{
+    if(!user){
+      toast.error('All feilds are required')
+      throw new Error('All feilds are required')
+    }
+
+    try {
+   
+      const response =await fetchQuery(`users/profile/${user}`,token,'DELETE')
+   
+      if (response.statusCode !== 200) {
+        toast.error(response.error)
+        throw new Error(response);
+      }
+      toast.success(' delete Successful')
+      return response
+    } catch (error) {
+      console.error(error);
+    } 
+    
+  },[]);
+
+   const deleteRoom=useCallback(async(room)=>{
+    if(!room){
+      toast.error('All feilds are required')
+      throw new Error('All feilds are required')
+    }
+
+    try {
+   
+      const response =await fetchQuery(`rooms/${room}`,token,'DELETE')
+   
+      if (response.statusCode !== 200) {
+        toast.error(response.error)
+        throw new Error(response);
+      }
+      toast.success(' delete Successful')
+      return response
+    } catch (error) {
+      console.error(error);
+    } 
+    
+  },[]);
+
+   const deleteBooking=useCallback(async(booking)=>{
+    if(!booking){
+      toast.error('All feilds are required')
+      throw new Error('All feilds are required')
+    }
+
+    try {
+   
+      const response =await fetchQuery(`bookings/${booking}`,token,'DELETE')
+   
+      if (response.statusCode !== 200) {
+        toast.error(response.error)
+        throw new Error(response);
+      }
+      toast.success(' delete Successful')
+      return response
+    } catch (error) {
+      console.error(error);
+    } 
+    
+  },[]);
 return {
     createBooking,
     createRoom,
     getBookings,
     getAllRooms,
     signUp,
+    updateUser,
+    deleteUser,
     login,
     updateRoom,
+    deleteRoom,
     cancleBooking,
+    deleteBooking,
     getAllUsers,
     getAllBookings,
     getUserData

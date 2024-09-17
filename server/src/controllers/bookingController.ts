@@ -79,7 +79,7 @@ export const getUserBookings = async (req: Request|any, res: Response) => {
 // Admin: Get All Bookings
 export const getAllBookings = async (req: Request|any, res: Response) => {
   try {
-    const bookings = await Booking.find().populate('user room')
+    const bookings = await Booking.find().populate('user').populate('room');
     res.status(200).json({statusCode:200,data:bookings});
   } catch (error:any) {
     res.status(500).json({ statusCode:500, error: error.message });

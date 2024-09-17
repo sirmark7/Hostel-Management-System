@@ -1,22 +1,25 @@
 
 import { useOutletContext } from 'react-router-dom';
 import Table from '../Table'
-import { BiEdit, BiTrash } from 'react-icons/bi';
+import { BiEdit, BiTrash,BiPlus } from 'react-icons/bi';
+import ButtonAdmin from '../../ButtonAdmin';
+// import { PropTypes } from "prop-types";
 
 const RoomListingAdmin = () => {
+const {handleModal}=useOutletContext()
   const{hostelData}=useOutletContext()
       const manageRoutes = [
           {
       label: "edit",
       name: "Edit",
       icon: <BiEdit />,
-      href: "/admin/rooms",
+      href: "Room",
     },
     {
       label: "delete",
       name: "Delete",
       icon: <BiTrash />,
-      href: "/api/rooms",
+      href: "Room",
     },
    
   ];
@@ -27,9 +30,15 @@ const RoomListingAdmin = () => {
     };
   });
   console.log(hostelData);
-  
-  return (
+    return (
     <div>
+     <span className='flex w-full  justify-end pb-4' >
+     
+       <ButtonAdmin styles='flex justify-center gap-2 p-2' onClick={()=>handleModal(true,'Room')} type='button'>
+         <BiPlus className='text-2xl text-main-color'/>
+         Add Room
+       </ButtonAdmin>
+      </span> 
         <Table
         columns={["id", "name", "occupancy","slot", "price","category","status"]}
         rows={formattedRooms}
@@ -38,5 +47,7 @@ const RoomListingAdmin = () => {
     </div>
   )
 }
-
+// RoomListingAdmin.propTypes={
+//   handleModal:PropTypes.func
+// }
 export default RoomListingAdmin

@@ -18,12 +18,12 @@ const Form= ({
 
   const router = useNavigate();
 
-  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     submit(initialFields);
   };
 
-  const updateField = (label: string, value: any) => {
+  const updateField = (label, value) => {
     if (initialFields) {
       setInitialFields(
         initialFields.map((field) => {

@@ -1,33 +1,27 @@
-import { useContext} from "react";
-import { useNavigate } from "react-router-dom";
+// import { useContext} from "react";
+import {  useOutletContext } from "react-router-dom";
 import TableAction from "./TableActions";
-import toast from "react-hot-toast";
-import { LoaderContext } from "../store/AppContext";
+// import toast from "react-hot-toast";
+// import { LoaderContext } from "../store/AppContext";
 import { PropTypes } from "prop-types";
+// import useRequestResorce from "../store/useRequestresource";
 
 
 
 const Table= ({ columns, rows, manageRoutes }) => {
-  const {setIsLoading} = useContext(LoaderContext);
-  const router = useNavigate();
+  // const {setIsLoading} = useContext(LoaderContext);
+  const {handleModal,handleDelete}=useOutletContext()
+  // const router = useNavigate();
+  console.log(rows);
+  
 
-  const managefxn = async (label, href, id) => {
+  const managefxn = async (label, href, item) => {
     if (label.toLowerCase() === "edit") {
-      router(`${href}/${id}`);
+      handleModal(true,href,item);
       return;
     }
     if (label.toLowerCase() === "delete") {
-      setIsLoading(true);
-      try {
-      
-        toast.success("Deleted!");
-        router.refresh();
-      } catch (error) {
-        console.log("Delete failed:", error);
-        toast.error("Delete failed!");
-      } finally {
-        setIsLoading(false);
-      }
+      handleDelete(href,item._id)
     }
   };
 
@@ -66,7 +60,7 @@ const Table= ({ columns, rows, manageRoutes }) => {
                   <TableAction
                     actions={manageRoutes}
                     actionFxn={managefxn}
-                    id={row._id}
+                    id={row}
                   />
                 </span>
               </td>

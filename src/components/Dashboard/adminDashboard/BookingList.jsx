@@ -1,22 +1,24 @@
 
 import { useOutletContext } from 'react-router-dom';
 import Table from '../Table'
-import { BiEdit, BiTrash } from 'react-icons/bi';
+import { BiEdit, BiPlus, BiTrash } from 'react-icons/bi';
+import ButtonAdmin from '../../ButtonAdmin';
 
 const BookingList= () => {
-     const{allBooked}=useOutletContext()
+
+     const{allBooked,handleModal}=useOutletContext()
       const manageRoutes = [
           {
       label: "edit",
       name: "Edit",
       icon: <BiEdit />,
-      href: "/admin/bookings",
+      href: "Booking",
     },
     {
       label: "delete",
       name: "Delete",
       icon: <BiTrash />,
-      href: "/api/bookings",
+      href: "Booking",
     },
    
   ];
@@ -27,14 +29,22 @@ const BookingList= () => {
       name:o.user.fullName,
       number:o.user.phoneNumber,
       email:o.user.email,
-      room:o.room.name,
-      category:o.room.category
+      roomName:o.room.name,
+      category:o.room.category,
+
     };
   });
   return (
     <div>
+         <span className='flex w-full  justify-end pb-4' >
+     
+       <ButtonAdmin styles='flex justify-center gap-2 p-2' onClick={()=>handleModal(true,'Booking')} type='button'>
+         <BiPlus className='text-2xl text-main-color'/>
+         Add Booking
+       </ButtonAdmin>
+      </span> 
         <Table
-        columns={["id", "name", "number", "email","room","category", "status","date"]}
+        columns={["id", "name", "number", "email","roomName","category", "status","date"]}
         rows={formattedBookings}
         manageRoutes={manageRoutes}
         />

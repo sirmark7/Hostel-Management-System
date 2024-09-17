@@ -18,24 +18,28 @@ const Login = ({toggleForm}) => {
     const {login}=useRequestResorce()
     const route=useNavigate()
     const handleLogin=async(e)=>{
-      e.preventDefault()
       setIsLoading(true)
+      e.preventDefault()
     await login(email,password)
     .then((res)=>{
        const role =localStorage.getItem("role")
-      setIsLoading(false)
+      
       if(res.statusCode!==200){
         toast.error(res)
         route('/auth')
+        setIsLoading(false)
         return;
       }
       if(role==='admin'){
-         setIsLogged(true)
+        
       route('/admin')
+
       window.location.reload()
+      setIsLoading(false)
       }else{
-      setIsLogged(true)
+      
       route('/dashboard')
+      setIsLoading(false)
       }
       })
       }

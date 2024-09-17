@@ -12,7 +12,7 @@ const ModalCard= (
          </div>
 
        
-          <div className='max-h-[80%] overflow-y-auto'>
+          <div className='max-h-[80%] w-full overflow-y-auto shadow-md '>
 
            {children}
         </div>
