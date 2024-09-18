@@ -24,12 +24,10 @@ import Bookings from './components/Dashboard/userDashboard/Bookings'
 import ProtectedRouteAdmin from './components/ProtectedRouteAdmin'
 import AdminDashboardLayout from './components/Dashboard/adminDashboard/AdminDashboardLayout'
 import AdminDashboard from './components/Dashboard/adminDashboard/AdminDashboard'
-import RoomDetailAdmin from './components/Dashboard/adminDashboard/RoomDetailAdmin'
 import BookingList from './components/Dashboard/adminDashboard/BookingList'
-import BookedDetailAdmin from './components/Dashboard/adminDashboard/BookedDetailAdmin'
 import RoomListingAdmin from './components/Dashboard/adminDashboard/RoomListingAdmin'
-import UserDetails from './components/Dashboard/adminDashboard/UserDetails'
 import UserList from './components/Dashboard/adminDashboard/UserList'
+import ReportResults from './components/Dashboard/adminDashboard/ReportResults'
 // import PageLayout from './components/PageLayout'
 // import DashboardLayout from './components/Dashboard/DashboardLayout'
 
@@ -66,11 +64,9 @@ function App() {
             <Route path='admin' element={<AdminDashboardLayout/>} >
                 <Route index  element={<AdminDashboard/>}/>
                 <Route path='rooms' element={<RoomListingAdmin/>}/>
-                <Route path='rooms/:roomId' element={<RoomDetailAdmin/>}/>
                 <Route path='bookings' element={<BookingList/>}/>
-                <Route path='bookings/:bookingId' element={<BookedDetailAdmin/>}/>
                 <Route path='users' element={<UserList/>}/>
-                <Route path='users/:userId' element={<UserDetails/>}/>
+                <Route path='report' element={<ReportResults/>}/>
             </Route>
         </Route>
          <Route path="*" element ={<ErrorPage/>} />

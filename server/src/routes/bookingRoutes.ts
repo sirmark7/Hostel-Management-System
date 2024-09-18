@@ -1,5 +1,5 @@
 import express from 'express';
-import { createBooking, getUserBookings, getAllBookings, updateBookingStatus, deleteBooking, createUserBooking, updateBooking } from '../controllers/bookingController';
+import { createBooking, getUserBookings, getAllBookings, updateBookingStatus, deleteBooking, createUserBooking, updateBooking, generateReports } from '../controllers/bookingController';
 import { authMiddleware, adminMiddleware } from '../middlewares/authMiddleware';
 
 const router = express.Router();
@@ -7,6 +7,7 @@ const router = express.Router();
 router.post('/', authMiddleware, createBooking);
 router.post('/user', authMiddleware,adminMiddleware, createUserBooking);
 router.get('/', authMiddleware, getUserBookings);
+router.get('/report', authMiddleware,adminMiddleware, generateReports);
 router.get('/admin', authMiddleware, adminMiddleware, getAllBookings);
 router.put('/:id', authMiddleware, adminMiddleware, updateBooking);
 router.put('/status/:id', authMiddleware, updateBookingStatus);

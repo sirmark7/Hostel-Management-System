@@ -68,6 +68,16 @@ const handleLogOut=()=>{
             Users
           </Link>
         </li>
+        <li>
+          <Link
+            to={"/admin/report"}
+            className={`transition-all flex items-center justify-center ${
+              pathname.includes("/admin/report") ? "font-bold" : "font-medium"
+            } hover:font-bold`}
+          >
+            Reports
+          </Link>
+        </li>
       </ul>
 
       <Button styles='' text='Log out' onClick={handleLogOut} type='button' />

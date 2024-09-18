@@ -191,6 +191,26 @@ export const updateBooking = async (req: Request|any, res: Response) => {
     res.status(500).json({  statusCode:500,error: error.message });
   }
 };
+
+export const generateReports = async (req: Request|any, res: Response) => {
+  const { start, end } = req.query
+  console.log(req.query);
+  
+  try {
+    const bookings = await Booking.find({
+      bookingDate: {
+        $gte: new Date(start),
+        $lte: new Date(end),
+      }
+    })
+    .populate('room')
+    .populate('user');
+    
+   res.status(200).json({ statusCode:200,data:bookings});
+  } catch (error:any) {
+     res.status(500).json({  statusCode:500,error:error.message });
+  }
+};
 // Delete a Booking
 export const deleteBooking = async (req: Request|any, res: Response) => {
   const { id } = req.params;

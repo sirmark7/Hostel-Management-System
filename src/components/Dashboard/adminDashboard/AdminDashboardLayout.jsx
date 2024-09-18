@@ -9,14 +9,17 @@ import RoomForm from "./RoomForm"
 import UserForm from "./UserForm"
 import BookingForm from "./BookingForm"
 import useRequestResorce from "../../store/useRequestresource"
+import ReportForm from "./ReportForm"
+import toast from "react-hot-toast"
 
 const AdminDashboardLayout = () => {
-  const {signUp,createUserBooking,createRoom,updateBooking,updateRoom,updateUser,deleteBooking,deleteRoom,deleteUser}=useRequestResorce()
+  const {signUp,createUserBooking,createRoom,updateBooking,updateRoom,updateUser,generateReport,deleteBooking,deleteRoom,deleteUser}=useRequestResorce()
 const {hostelData,setHostelData}=useContext(HostelsContext)
 const {allBooked,setAllBooked}=useContext(AllBookingsContext)
 const {userList,setUserList}=useContext(UserListContext)
 const {setIsLoading}=useContext(LoaderContext)
 const [showModal,setShowModal]=useState(false)
+const [reportData,setReportData]=useState([])
 const [heading,setHeading]=useState("")
 const [initialData,setInitialData]=useState(null)
 //  const clearForm=()=>{
@@ -121,7 +124,20 @@ const handleModal=(status,heading,data)=>{
         setIsLoading(false)
     }
    
-  
+  }
+
+  const handleReport=async(start,end)=>{
+    setIsLoading(true )
+    handleModal(false,'Report',null)
+    const response=await generateReport(start,end)
+    if(response.statusCode !==200){
+      toast.error('error generation report')
+    setIsLoading(false)
+      throw new Error('error generating report')
+    }
+    toast.success('Report generated successfully')
+    setReportData(response.data)
+    setIsLoading(false)
   }
   return ( <div className="max-w-[1512px] m-auto pt-10">
               <header
@@ -133,12 +149,13 @@ const handleModal=(status,heading,data)=>{
               <section className="max-w-[1512px]">
                  {/* <SideNav navItems={navItems} linkPreFix='/dashboard' icons={icons} />   */}
                 <div className="text-black w-full relative h-full ">
-                <Outlet context={{hostelData,allBooked,userList,showModal,handleModal,handleDelete}}/>
+                <Outlet context={{hostelData,allBooked,userList,showModal,handleModal,handleDelete,reportData}}/>
                 </div>
                 <ModalCard isActive={showModal} heading={initialData ? "Edit "+heading : "Add "+heading} handleIsActive={()=>setShowModal(false)}>
                   {heading==='Room'&& <RoomForm initialData={initialData} onSubmit={handleSubmit}  />}
                   {heading=== 'User' && <UserForm initialData={initialData} onSubmit={handleSubmit}  />}
                   {heading=== 'Booking' && <BookingForm initialData={initialData} onSubmit={handleSubmit} users={userList} rooms={hostelData}  />}
+                  {heading==='Report' && <ReportForm onGenerateReport={handleReport}  />}
                 </ModalCard>
               </section>
           </div>

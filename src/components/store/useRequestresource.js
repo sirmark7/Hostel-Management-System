@@ -396,9 +396,23 @@ const updateRoom=useCallback(async(data)=>{
     } 
     
   },[]);
+
+  const generateReport = async (startDate, endDate) => {
+    try {
+      if(!startDate||!endDate){
+        toast.error('All feilds are required')
+        throw new Error('All feilds are required')
+      }
+      const response = await fetchQuery(`bookings/report?start=${startDate}&end=${endDate}`,token);
+      return response// Set the bookings data to display the report
+    } catch (error) {
+      console.error('Error generating report:', error);
+    }
+  };
 return {
     createBooking,
     createUserBooking,
+    generateReport,
     updateBooking,
     createRoom,
     getBookings,
