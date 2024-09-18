@@ -159,6 +159,48 @@ const updateRoom=useCallback(async(data)=>{
     }
   }, []);
 
+
+  const createUserBooking = useCallback(async (bookingData) => {
+    if(!bookingData.userId||!bookingData.roomId){
+      toast.error('data not valid')
+        throw new Error('invalide datata');
+    }
+    console.log(bookingData);
+    
+    try {
+      const response = await  fetchQuery(`bookings/user`, token, 'POST',bookingData )
+
+     if (response.statusCode !== 201) {
+        toast.error(response.error)
+        throw new Error(response);
+      }
+         toast.success('Booking Created Successfully')
+        return response
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+   const updateBooking = useCallback(async (bookingData) => {
+    if(!bookingData){
+      toast.error('data not valid')
+        throw new Error('invalide datata');
+    }
+    console.log(bookingData);
+    
+    try {
+      const response = await  fetchQuery(`bookings/${bookingData.bookingId}`, token, 'PUT',bookingData )
+
+     if (response.statusCode !== 200) {
+        toast.error(response.error)
+        throw new Error(response);
+      }
+       toast.success('Booking updated')
+        return response
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
   // get Users - working
   const getAllUsers = useCallback(async () => {
     const response = await fetchQuery(`users/all/profile`, token);
@@ -333,14 +375,15 @@ const updateRoom=useCallback(async(data)=>{
   },[]);
 
    const deleteBooking=useCallback(async(booking)=>{
-    if(!booking){
+    if(!booking._id){
       toast.error('All feilds are required')
       throw new Error('All feilds are required')
     }
 
     try {
    
-      const response =await fetchQuery(`bookings/${booking}`,token,'DELETE')
+      const response =await fetchQuery(`bookings/${booking._id}`,token,'DELETE',{
+        slots:booking.room.slot})
    
       if (response.statusCode !== 200) {
         toast.error(response.error)
@@ -355,6 +398,8 @@ const updateRoom=useCallback(async(data)=>{
   },[]);
 return {
     createBooking,
+    createUserBooking,
+    updateBooking,
     createRoom,
     getBookings,
     getAllRooms,

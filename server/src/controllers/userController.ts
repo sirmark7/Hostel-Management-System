@@ -22,7 +22,7 @@ export const getUserProfile = async (req: Request|any, res: Response) => {
 
 export const getAllUseProfiles = async (req: Request|any, res: Response) => {
   try {
-    const users = await User.find().select('-password');
+    const users = await User.find().select('-password').sort({ bookingDate: -1 });
     if (!users) {
       return res.status(404).json({ message: 'No Users not found' });
     }

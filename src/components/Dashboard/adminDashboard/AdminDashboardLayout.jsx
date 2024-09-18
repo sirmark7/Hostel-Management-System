@@ -11,7 +11,7 @@ import BookingForm from "./BookingForm"
 import useRequestResorce from "../../store/useRequestresource"
 
 const AdminDashboardLayout = () => {
-  const {signUp,createBooking,createRoom,updateRoom,updateUser,deleteBooking,deleteRoom,deleteUser}=useRequestResorce()
+  const {signUp,createUserBooking,createRoom,updateBooking,updateRoom,updateUser,deleteBooking,deleteRoom,deleteUser}=useRequestResorce()
 const {hostelData,setHostelData}=useContext(HostelsContext)
 const {allBooked,setAllBooked}=useContext(AllBookingsContext)
 const {userList,setUserList}=useContext(UserListContext)
@@ -46,7 +46,7 @@ const handleModal=(status,heading,data)=>{
      return ;
   }
   else if(type.toLowerCase()==='booking'){
-   const response = await createBooking(form)
+   const response = await createUserBooking(form)
    setAllBooked([response.data,...allBooked])
    return ;
   }
@@ -69,8 +69,10 @@ const handleModal=(status,heading,data)=>{
      return ;
   }
   else if(type.toLowerCase()==='booking'){
-   const response = await createBooking(form)
-   setAllBooked([response.data,...allBooked])
+    console.log(form);
+    
+    await updateBooking(form)
+    // setAllBooked([response.data,...allBooked])
    return ;
   }
   }
@@ -102,11 +104,13 @@ const handleModal=(status,heading,data)=>{
           return;
         }
         if(href.toLowerCase()==='booking'){
-          response= await deleteBooking(item)
+          console.log(item);
+          const bookeItem=await allBooked.find(booked=>booked._id===item)
+          response= await deleteBooking(bookeItem)
           console.log(response);
           
            const newList=allBooked.filter(booked=>booked._id!==item)
-          setAllBooked([newList])
+          setAllBooked([...newList])
           return
         }
     } catch (error) {

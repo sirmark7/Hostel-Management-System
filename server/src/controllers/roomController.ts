@@ -67,7 +67,7 @@ export const deleteRoom = async (req: Request, res: Response) => {
 // Get all rooms
 export const getRooms = async (req: Request, res: Response) => {
   try {
-    const rooms = await Room.find();
+    const rooms = await Room.find().sort({ bookingDate: -1 });
     res.status(200).json({ statusCode:200,data:rooms});
   } catch (error:any) {
     res.status(500).json({ statusCode:500,error: error.message });

@@ -46,11 +46,12 @@ const formDataValues={
     } else {
       console.log("No changes to submit.");
     }
+
     }
     else{
     await onSubmit(formData,mode,'user'); 
-    }
     setFormData(formDataValues)
+    }
   };
 
   return (
