@@ -48,11 +48,12 @@ const resetFormData=()=>{
   };
 // Handle image input change
   const handleImageChange = (e) => {
-    const images = Array.from(e.target.files);    
-    setFormData({ ...formData, images });
+    const imagesList = Array.from(e.target.files);   
+     
+    setFormData({ ...formData, images:imagesList });
 
     // Generate image previews
-    const previews = images.map((file) => URL.createObjectURL(file));
+    const previews = imagesList.map((file) => URL.createObjectURL(file));
     setImagePreviews(previews);
   };
 

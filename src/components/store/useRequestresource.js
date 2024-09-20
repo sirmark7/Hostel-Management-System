@@ -17,60 +17,68 @@ const useRequestResorce=()=>{
 
 //create new deal
 const createRoom = useCallback(async (formData) => {
-  const {name,price,oldPrice, hostel,location,slot, occupancy, stars, category,description,facilities,images}=formData
-  formData.oldPrice=price
-  try {
-          if(!name && !price &&! hostel && !location && !slot && !occupancy &&  !stars &&!category && !description && !facilities && !images){ 
-         toast.error('Please fill in all fields')
-         throw new Error('Ensure all fields are provided')
-      }
-  console.log(formData);
-     
-   
-      
-        const newRoomData = new FormData();
-      newRoomData.append("name",name)
-      newRoomData.append("price",price)
-      newRoomData.append("oldPrice",oldPrice)
-      newRoomData.append("hostel",hostel)
-      newRoomData.append("location",location)
-      newRoomData.append("slot",slot)
-      newRoomData.append("occupancy",occupancy)
-      newRoomData.append("stars",[stars])
-      newRoomData.append("category",category)
-      newRoomData.append("description",description)
-      newRoomData.append("facilities",facilities)
-      newRoomData.append("images",images)
-           
+  const { name, price, oldPrice, hostel, location, slot, occupancy, stars, category, description, facilities, images } = formData;
 
- for (var pair of newRoomData.entries()) {
-    console.log(pair[0]+ ', ' + pair[1]); 
-}
-        const response = await fetch('http://localhost:5000/api/rooms', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${token}`, // Set only the Authorization header
-        },
-        body: newRoomData, // Set the body as FormData
+  // Set the old price to the current price (if applicable)
+  formData.oldPrice = price;
+
+  // Form validation: check if any required fields are missing
+  try {
+    if (!name || !price || !hostel || !location || !slot || !occupancy || !stars || !category || !description || !facilities || !images.length) {
+      toast.error('Please fill in all fields');
+      throw new Error('Ensure all fields are provided');
+    }
+
+    // Initialize FormData to send the data
+    const newRoomData = new FormData();
+
+    // Append text fields
+    newRoomData.append("name", name);
+    newRoomData.append("price", price);
+    newRoomData.append("oldPrice", oldPrice);
+    newRoomData.append("hostel", hostel);
+    newRoomData.append("location", location);
+    newRoomData.append("slot", slot);
+    newRoomData.append("occupancy", occupancy);
+    newRoomData.append("stars", stars);  // Convert stars array to JSON string
+    newRoomData.append("category", category);
+    newRoomData.append("description", description);
+    newRoomData.append("facilities", facilities);
+
+    // Append images one by one (since it's an array)
+    for (let i = 0; i < images.length; i++) {
+      newRoomData.append("images", images[i]); // Add each image file to the FormData
+    }
+
+    // Debugging: log the FormData entries
+    for (var pair of newRoomData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+
+    // Send the form data to the server
+    const response = await fetch('http://localhost:5000/api/rooms', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`, // Only set Authorization header
+      },
+      body: newRoomData, // Set the body as FormData
     });
+
     const result = await response.json();
-  if (result.statusCode !== 200) {
-  toast.success('Error')
-  console.log(result);
-  
-    
-    throw new Error(result);
-  }
-  // setHostelData([...hostelData,response.data])
-  toast.success('Room Created Successfully')
-  return result
+
+    if (response.status !== 201) {
+      toast.error(result.error);
+      console.log(result.error);
+      throw new Error(result);
+    }
+
+    toast.success('Room Created Successfully');
+    return result;
   } catch (error) {
     console.log(error);
-    
   }
-  
+}, []);
 
-},[])
 
 
 
