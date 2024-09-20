@@ -6,19 +6,25 @@ import Room from '../models/Room';
 // Create a new room
 export const createRoom = async (req: Request, res: Response) => {
   const { name, price, oldPrice, hostel, location, slot, occupancy, stars, category, description, facilities } = req.body;
+if (!name && !price &&! hostel && !location && !slot && !occupancy &&  !stars &&!category && !description && !facilities && !req.files) {
+  return res.status(400).json({ statusCode: 400, error: 'Ensure all fields are provided' });
+} 
+console.log(req.body);
+  console.log(req.files);
 
   const images = req.files ? (req.files as Express.Multer.File[]).map(file => file.filename) : [];
+  
 
   try {
     const newRoom = new Room({
       name,
-      price,
-      oldPrice,
+      price: Number(price),
+      oldPrice: Number(oldPrice),
       hostel,
       location,
-      slot,
-      occupancy,
-      stars,
+      slot: Number(slot),
+      occupancy: Number(occupancy),
+      stars: stars.split(',').map(Number),
       category,
       description,
       facilities,

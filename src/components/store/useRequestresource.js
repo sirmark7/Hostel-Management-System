@@ -16,48 +16,60 @@ const useRequestResorce=()=>{
 
 
 //create new deal
-const createRoom = useCallback(async (name,price,oldPrice, hostel,location,slot, occupancy, stars, category,description,facilities,images) => {
-      if(!name && !price && !oldPrice &&! hostel && !location && !slot && !occupancy &&  !stars &&!category && !description && !facilities && !images){ 
+const createRoom = useCallback(async (formData) => {
+  const {name,price,oldPrice, hostel,location,slot, occupancy, stars, category,description,facilities,images}=formData
+  formData.oldPrice=price
+  try {
+          if(!name && !price &&! hostel && !location && !slot && !occupancy &&  !stars &&!category && !description && !facilities && !images){ 
          toast.error('Please fill in all fields')
          throw new Error('Ensure all fields are provided')
       }
+  console.log(formData);
      
    
       
         const newRoomData = new FormData();
-      newRoomData.append("fullName",name)
+      newRoomData.append("name",name)
       newRoomData.append("price",price)
       newRoomData.append("oldPrice",oldPrice)
       newRoomData.append("hostel",hostel)
       newRoomData.append("location",location)
-      newRoomData.append("slot",{slot:slot?slot:occupancy})
+      newRoomData.append("slot",slot)
       newRoomData.append("occupancy",occupancy)
-      newRoomData.append("stars",stars)
+      newRoomData.append("stars",[stars])
       newRoomData.append("category",category)
       newRoomData.append("description",description)
       newRoomData.append("facilities",facilities)
       newRoomData.append("images",images)
            
-console.log('sentdata',newRoomData);
- 
-        const response = await fetch(`http://localhost:5000/api/room`, {
+
+ for (var pair of newRoomData.entries()) {
+    console.log(pair[0]+ ', ' + pair[1]); 
+}
+        const response = await fetch('http://localhost:5000/api/rooms', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`, // Set only the Authorization header
         },
         body: newRoomData, // Set the body as FormData
     });
-
-  if (response.statusCode !== 200) {
+    const result = await response.json();
+  if (result.statusCode !== 200) {
+  toast.success('Error')
+  console.log(result);
+  
     
-    throw new Error(response);
+    throw new Error(result);
   }
-
-  setHostelData([...hostelData,response.data])
+  // setHostelData([...hostelData,response.data])
+  toast.success('Room Created Successfully')
+  return result
+  } catch (error) {
+    console.log(error);
+    
+  }
   
 
-  toast.success('Room Created Successfully')
-  return [true,response.data]
 },[])
 
 

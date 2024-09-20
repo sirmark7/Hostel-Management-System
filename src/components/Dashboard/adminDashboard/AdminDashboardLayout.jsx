@@ -43,7 +43,9 @@ const handleModal=(status,heading,data)=>{
      setUserList([response.data,...userList])
      return ;
     }
-    else if(type.toLowerCase()==='room'){    
+    else if(type.toLowerCase()==='room'){  
+      console.log(form);
+        
      const response = await createRoom(form)
      setHostelData([response.data,...hostelData])
      return ;

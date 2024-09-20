@@ -2,41 +2,108 @@ import  { useState, useEffect } from 'react';
 import { PropTypes } from "prop-types";
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import toast from 'react-hot-toast';
+
 const RoomForm = ({ initialData, onSubmit }) => {
-    const [starsCount, setStarsCount] = useState(1);
-    const starMax=5
-    console.log(initialData);
-    
-  const [formData, setFormData] = useState({
+  // const {handleSubmit}=useOutletContext()
+  const [mode, setMode] = useState('add');
+  const formDataValues={
     name: '',
-    price: '',
+    price: 0,
     oldPrice:0,
     category: '',
-    occupancy: '',
-    slot:'',
+    occupancy: 0,
+    slot:0,
     location: '',
     hostel: '',
     images:[],
     facilities:'',
-    stars:0,
+    stars:[],
     description: '',
-  });
-
+  }
+    const [starsCount, setStarsCount] = useState(1);
+     const [imagePreviews, setImagePreviews] = useState([]);
+    const starMax=5
+    // console.log(initialData);
+    
+  const [formData, setFormData] = useState(formDataValues);
+const resetFormData=()=>{
+  setFormData(formDataValues)
+  setImagePreviews([]);
+  setStarsCount(1)
+}
   useEffect(() => {
+  resetFormData();
     if (initialData) {
+      setMode('edit')
+      setStarsCount(initialData.stars.length);
+      setImagePreviews(initialData.images);
       setFormData({...initialData,facilities:initialData.facilities.join(", "),stars:initialData.stars.reduce((a, b) => a + b, 0)});
     setStarsCount(initialData.stars.length);
     }
   }, [initialData]);
-console.log(formData);
+// console.log(formData);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+// Handle image input change
+  const handleImageChange = (e) => {
+    const images = Array.from(e.target.files);    
+    setFormData({ ...formData, images });
 
-  const handleSubmit = (e) => {
+    // Generate image previews
+    const previews = images.map((file) => URL.createObjectURL(file));
+    setImagePreviews(previews);
+  };
+
+  const rating=(value)=>{
+    const ratingCount=[]
+    for (let index = 0; index < value; index++) {
+      ratingCount.push(1)     
+    }
+    return ratingCount
+  }
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    onSubmit(formData);  // Pass formData to the parent component or API call
+
+     formData.facilities=formData.facilities.split(",")
+   if(mode==='edit'){
+        const modifiedData = {};
+        const userId=initialData._id
+    for (const key in formData) {
+      if (formData[key] !== initialData[key]) {
+        modifiedData[key] = formData[key]; // Add only changed fields
+      }
+    }
+  if(Number(initialData.stars)!==Number(starsCount)){
+        formData.stars=rating(starsCount)
+      }else{
+        formData.stars=initialData.stars
+      }
+       if(Number(initialData.occupancy)!==Number(formData.occupancy)){
+        const result =formData.occupancy-initialData.occupancy
+        formData.slot=result<=0?0:result
+        
+      }else{
+        formData.slot=initialData.slot
+      }
+    // Submit only modified fields
+    if (Object.keys(modifiedData).length > 0) {
+        modifiedData._id=userId   
+
+     await onSubmit(modifiedData,mode,'user');
+    } else {
+      console.log("No changes to submit.");
+    }
+
+    }
+    else{
+      
+      formData.stars=rating(starsCount)
+      formData.slot=formData.occupancy
+    await onSubmit(formData,mode,'room'); 
+    resetFormData();
+    }
   };
 
   return (
@@ -125,7 +192,7 @@ console.log(formData);
             >
               <AiOutlineMinus className="text-[14px]" />
             </span>
-            <span className="flex flex-3 p-1"> {initialData?formData.stars:starsCount}</span>
+            <span className="flex flex-3 p-1"> {starsCount}</span>
 
             <span
               onClick={() =>
@@ -148,6 +215,38 @@ console.log(formData);
         className="w-full p-2 border border-gray-color rounded mb-4"
         placeholder="Enter room description"
       ></textarea>
+       {/* Image Upload Input */}
+      <label className="block text-text-color mb-2">Upload Room Images</label>
+      <input
+        type="file"
+        name="images"
+        multiple
+        accept="image/*"
+        onChange={handleImageChange}
+        className="w-full p-2 border border-gray-color rounded mb-4"
+      />
+
+      {/* Image Previews */}
+      { mode === 'edit' && imagePreviews.length > 0 && (
+        <div className="grid grid-cols-3 gap-2 mb-4">
+          {imagePreviews.map((preview, index) => (
+            <div key={index} className="w-full h-24 border border-gray-color rounded overflow-hidden">
+              <img src={`../../../server/src/uploads/${preview}`} alt={`Preview ${index + 1}`} className="w-full h-full object-cover" />
+            </div>
+          ))}
+        </div>
+      )}
+       <label htmlFor="">Selected Images</label>
+      {imagePreviews.length > 0 && (
+        <div className="grid grid-cols-3 gap-2 mb-4">
+          {imagePreviews.map((preview, index) => (
+            <div key={index} className="w-full h-24 border border-gray-color rounded overflow-hidden">
+              <img src={preview} alt={`Preview ${index + 1}`} className="w-full h-full object-cover" />
+            </div>
+          ))}
+        </div>
+      )}
+
 
       <button type="submit" className="w-full p-3 bg-btn-bg hover:bg-btn-bg-hover text-white rounded">
         {initialData ? "Update Room" : "Add Room"}

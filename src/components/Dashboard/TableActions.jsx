@@ -80,7 +80,7 @@ const TableAction= ({
  TableAction.propTypes={
    actions:PropTypes.array,
   actionFxn:PropTypes.func,
-  id:PropTypes.string
+  id:PropTypes.object
  }
 
 export default TableAction;

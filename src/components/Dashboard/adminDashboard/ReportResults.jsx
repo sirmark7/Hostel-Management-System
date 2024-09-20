@@ -1,7 +1,7 @@
 import { PropTypes } from "prop-types";
 import { useOutletContext } from "react-router-dom";
 import ButtonAdmin from "../../ButtonAdmin";
-import { BiCloudDownload, BiPlus, BiPrinter } from "react-icons/bi";
+import { BiCloudDownload, BiPlus} from "react-icons/bi";
 import downloadCSV from "../../store/downloadCSV";
 const ReportResults = () => {
     const {handleModal,reportData}=useOutletContext()
